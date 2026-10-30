@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agarwal Computers - Management & Prize Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=white_sky_2026_real_v2">
+</head>
+<body class="admin-body">
+
+  <!-- ================= 1. ADMIN LOGIN VIEW ================= -->
+  <div id="admin-login-screen" class="admin-login-wrapper">
+    <div class="admin-login-card glass-panel">
+      <div class="admin-lock-icon">🔐</div>
+      <h1 class="admin-title">ADMINISTRATOR PORTAL</h1>
+      <p class="admin-subtitle">Enter authorized credentials to manage prizes, item photos, and customer draw logs.</p>
+
+      <form id="admin-login-form" autocomplete="off">
+        <div class="input-group">
+          <label for="admin-user"><span class="label-icon">👤</span> Admin ID / Username</label>
+          <div class="input-wrapper">
+            <input type="text" id="admin-user" placeholder="Enter Admin ID" required />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="admin-pass"><span class="label-icon">🔑</span> Password</label>
+          <div class="input-wrapper">
+            <input type="password" id="admin-pass" placeholder="Enter Password" required />
+          </div>
+        </div>
+
+        <div id="admin-error-banner" class="error-banner hidden">
+          <span>⚠️ Invalid Admin ID or Password.</span>
+        </div>
+
+        <button type="submit" class="cta-primary-btn" style="margin-top: 1rem;">
+          <span class="btn-content">
+            <span>AUTHENTICATE & ENTER</span>
+            <span class="arrow-icon">➔</span>
+          </span>
+        </button>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <a href="index.html" class="pill-btn" style="text-decoration: none;">← Return to Main Lucky Draw</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= 2. ADMIN DASHBOARD VIEW (AUTHENTICATED) ================= -->
+  <div id="admin-dashboard-view" class="hidden">
+    <!-- Top Nav Header -->
+    <header class="admin-header">
+      <div class="admin-brand">
+        <img src="logo-blue.svg" alt="Agarwal Computer" style="height: 28px;" />
+        <span style="font-size: 0.85rem; color: var(--text-muted); letter-spacing: 1px; font-weight: 600;">CONTROL PANEL</span>
+      </div>
+      <div class="admin-nav-actions">
+        <a href="index.html" target="_blank" class="pill-btn" style="text-decoration: none;">
+          <span>🌐 View Customer Draw Page</span>
+        </a>
+        <button id="admin-logout-btn" class="pill-btn danger-outline">Logout</button>
+      </div>
+    </header>
+
+    <main class="admin-container">
+      <!-- Tabs Navigation -->
+      <div class="admin-tabs">
+        <button id="tab-prizes-btn" class="admin-tab-btn active">🎁 Prizes & Photos Management</button>
+        <button id="tab-history-btn" class="admin-tab-btn">📋 Customer Draw Logs</button>
+      </div>
+
+      <!-- TAB 1: PRIZES & PHOTO MANAGEMENT -->
+      <section id="panel-prizes" class="admin-tab-panel">
+
+        <!-- SECTION A: 2 SECRET SHOWCASE PRIZES -->
+        <div class="admin-section-header" style="margin-top: 1.5rem;">
+          <h3>👑 2 Secret Showcase Prizes <span style="font-size: 0.8rem; font-family: var(--font-body); color: #ff94c8; font-weight: normal;">(Never Won By Participant — Only Shown on "Show All")</span></h3>
+          <p>These two prizes are the grand showcase items. Customers CANNOT draw these. They appear inside the remaining unopened boxes when "Show All" is clicked.</p>
+        </div>
+
+        <div class="admin-prize-grid" id="showcase-prizes-container">
+          <!-- Rendered dynamically by admin.js -->
+        </div>
+
+        <!-- SECTION B: 7 DRAWABLE PRIZES -->
+        <div class="admin-section-header" style="margin-top: 2rem;">
+          <h3>🎁 7 Standard Drawable Prizes <span style="font-size: 0.8rem; font-family: var(--font-body); color: var(--primary-gold); font-weight: normal;">(Participant Will Win 1 of These 7)</span></h3>
+          <p>When a participant chooses any box, the system strictly selects one of these 7 prizes. You can change their names and upload product photos below.</p>
+        </div>
+
+        <div class="admin-prize-grid" id="drawable-prizes-container">
+          <!-- Rendered dynamically by admin.js -->
+        </div>
+
+        <!-- Sticky Floating Save Bar -->
+        <div class="admin-sticky-bar">
+          <div class="admin-sticky-info">
+            <strong>💡 Unsaved changes will reflect on the main page once saved.</strong>
+          </div>
+          <div class="admin-sticky-actions">
+            <button id="reset-default-prizes-btn" class="pill-btn danger-outline">Reset to Defaults</button>
+            <button id="save-all-prizes-btn" class="cta-primary-btn" style="width: auto; padding: 0.6rem 1.6rem; margin: 0;">
+              💾 SAVE ALL PRIZES & PHOTOS
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- TAB 2: DRAW PARTICIPANT LOGS -->
+      <section id="panel-history" class="admin-tab-panel hidden" style="margin-top: 1.5rem;">
+        <div class="admin-section-header" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3>📋 Customer Draw Participation Records</h3>
+            <p>List of all verified customers who participated in the draw, their bill number, and what prize they won.</p>
+          </div>
+          <button id="clear-history-btn" class="pill-btn danger-outline">🗑️ Clear History Logs</button>
+        </div>
+
+        <div class="history-table-wrapper glass-panel" style="margin-top: 1rem;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date & Time</th>
+                <th>Mobile Number</th>
+                <th>Bill / Invoice #</th>
+                <th>Prize Won</th>
+                <th>Box Picked</th>
+              </tr>
+            </thead>
+            <tbody id="history-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
