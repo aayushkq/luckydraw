@@ -7,13 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=blue_clean_2026">
+  <link rel="stylesheet" href="style.css?v=white_sky_2026_real_v3">
   <!-- Lightweight Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-  <!-- Sleek, Compact Navigation Header -->
+  <!-- Sleek, Minimal Top Navigation -->
   <header class="top-nav">
     <div class="brand-wrapper">
       <a href="index.html" class="brand-logo-link" title="Agarwal Computer">
@@ -38,7 +38,7 @@
       <div class="login-card">
         <div class="login-header">
           <h1 class="login-title">Customer Lucky Draw</h1>
-          <p class="login-subtitle">Enter your registered mobile & invoice number to participate.</p>
+          <p class="login-subtitle">Enter your registered mobile & invoice number to reveal your prize.</p>
         </div>
 
         <form id="lucky-login-form" autocomplete="off">
@@ -78,49 +78,45 @@
           </button>
         </form>
       </div>
+
+      <!-- Live Horizontal Scrolling Ribbon of All Gift Items (Right to Left) -->
+      <div class="login-prizes-ribbon">
+        <div class="ribbon-header-label">
+          <span>🎁 FEATURED LUCKY DRAW REWARDS</span>
+        </div>
+        <div class="marquee-outer-box">
+          <div class="marquee-scroll-track" id="login-marquee-track">
+            <!-- Dynamically populated with all 9 prizes and images by script.js -->
+          </div>
+        </div>
+        <div class="ribbon-disclaimer-note">*Product images shown are for representation purposes only.</div>
+      </div>
     </section>
 
     <!-- ================= STEP 2: LUCKY DRAW ARENA ================= -->
     <section id="draw-view" class="view-panel">
-      <!-- Compact User Status Ribbon -->
-      <div class="user-status-bar">
-        <div class="status-left">
-          <span class="status-icon">🎁</span>
-          <div class="status-info">
-            <span class="status-phone">Phone: <strong id="display-phone">-</strong></span>
-            <span class="status-separator">•</span>
-            <span class="status-bill">Invoice: <strong id="display-bill">-</strong></span>
-          </div>
-        </div>
-        <div class="status-right">
-          <div id="draw-status-pill" class="badge-status draw-ready">
-            <span class="pulse-dot"></span>
-            <span id="draw-status-text">Pick 1 Box</span>
-          </div>
-        </div>
-      </div>
 
       <!-- Draw Instruction Header -->
       <div class="draw-header-banner">
         <h2 class="section-title">Select Your Lucky Box</h2>
         <p class="section-desc" id="instructions-text">
-          Choose any <strong>1 of the 9 gift boxes</strong> to reveal your prize!
+          Choose any <strong>1 of the 9 gift boxes</strong> below to reveal your reward!
         </p>
       </div>
 
-      <!-- CINEMATIC 3x3 BOXES VIEWPORT -->
+      <!-- CENTERED 3x3 BOXES VIEWPORT -->
       <div class="boxes-stage-viewport" id="boxes-viewport">
         <div class="boxes-grid" id="boxes-container">
           <!-- 9 Gift Boxes generated dynamically by script.js -->
         </div>
-      </div>
 
-      <!-- Action Button Dock Directly Below The Gift -->
-      <div id="below-gift-action-dock" class="below-gift-action-dock hidden">
-        <button id="show-all-gifts-btn" class="below-gift-btn">
-          <span>Show All Boxes (Reveal 9/9)</span>
-          <span class="btn-arrow-icon">➔</span>
-        </button>
+        <!-- Action Button Dock: Positioned Directly Below The Drawn Box -->
+        <div id="below-gift-action-dock" class="below-gift-action-dock hidden">
+          <button id="show-all-gifts-btn" class="below-gift-btn">
+            <span>Show All Boxes (Reveal 9/9)</span>
+            <span class="btn-arrow-icon">➔</span>
+          </button>
+        </div>
       </div>
 
       <!-- Bottom New Draw Bar (Appears when all 9 boxes open) -->
@@ -161,14 +157,18 @@
         </div>
         <div class="rule-item">
           <span class="rule-num">2</span>
-          <div><strong>100% Genuine Rewards:</strong> Every box contains an official store gift, computer accessory, voucher, or gadget.</div>
+          <div><strong>100% Genuine Rewards:</strong> Every box contains an official store gift, computer accessory, voucher, or cash prize.</div>
         </div>
         <div class="rule-item">
           <span class="rule-num">3</span>
-          <div><strong>Transparent Showcase:</strong> After picking your gift, click "Show All Boxes" to view all remaining prizes.</div>
+          <div><strong>Product Images Disclaimer:</strong> All product images, photos, and visual representations displayed across this promotion are for illustration/shown purposes only. Actual gift models, colors, brands, or packaging may vary based on market availability.</div>
         </div>
         <div class="rule-item">
           <span class="rule-num">4</span>
+          <div><strong>Transparent Showcase:</strong> After picking your gift, click "Show All Boxes" to view all remaining prizes.</div>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">5</span>
           <div><strong>Redemption:</strong> Please present your registered invoice number at the billing counter to claim your reward.</div>
         </div>
       </div>
@@ -181,10 +181,10 @@
   <footer class="site-footer">
     <div class="footer-container">
       <span>© 2026 <strong>Agarwal Computer</strong>. All Rights Reserved.</span>
-      <span class="footer-note">Customer Privilege Rewards Program</span>
+      <span class="footer-note">*All product images shown are for representation purposes only.</span>
     </div>
   </footer>
 
-  <script src="script.js?v=blue_clean_2026"></script>
+  <script src="script.js?v=white_sky_2026_real_v3"></script>
 </body>
 </html>

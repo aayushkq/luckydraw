@@ -1,15 +1,6 @@
 /**
  * =================================================================
- * AGARWAL COMPUTERS - TV SHOWROOM & HIGH-END LUCKY DRAW SYSTEM
- * Flow Sequence:
- * 1. Screen Zooms In smoothly on selected box.
- * 2. Box 3D flips open + champagne sprinkler fountain.
- * 3. In-view "Reveal Other Boxes" button appears right beside/under box.
- * 4. User clicks button:
- *    - Button instantly vanishes!
- *    - Screen smoothly zooms out to 3x3 overview.
- *    - Other 8 boxes open one-by-one sequentially!
- * 5. "Start New Draw" pops down at the top for next customer!
+ * AGARWAL COMPUTER - WHITE & SKY BLUE THEME CUSTOMER LUCKY DRAW
  * =================================================================
  */
 
@@ -46,16 +37,16 @@ class SoundManager {
     const gain = this.ctx.createGain();
     osc.type = 'triangle';
     osc.frequency.setValueAtTime(420, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(840, this.ctx.currentTime + 0.07);
+    osc.frequency.exponentialRampToValueAtTime(840, this.ctx.currentTime + 0.06);
 
-    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.07);
+    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.06);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
 
     osc.start();
-    osc.stop(this.ctx.currentTime + 0.07);
+    osc.stop(this.ctx.currentTime + 0.06);
   }
 
   playZoom() {
@@ -66,17 +57,17 @@ class SoundManager {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'sine';
-    osc.frequency.setValueAtTime(200, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(400, this.ctx.currentTime + 0.5);
+    osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(440, this.ctx.currentTime + 0.45);
 
-    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+    gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.45);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
 
     osc.start();
-    osc.stop(this.ctx.currentTime + 0.5);
+    osc.stop(this.ctx.currentTime + 0.45);
   }
 
   playPop() {
@@ -87,17 +78,17 @@ class SoundManager {
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(520, this.ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(980, this.ctx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(540, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(980, this.ctx.currentTime + 0.09);
 
-    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.09);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
 
     osc.start();
-    osc.stop(this.ctx.currentTime + 0.1);
+    osc.stop(this.ctx.currentTime + 0.09);
   }
 
   playFanfare() {
@@ -114,14 +105,14 @@ class SoundManager {
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(freq, startTime + i * 0.1);
 
-      gain.gain.setValueAtTime(0.22, startTime + i * 0.1);
-      gain.gain.exponentialRampToValueAtTime(0.01, startTime + i * 0.1 + 0.55);
+      gain.gain.setValueAtTime(0.18, startTime + i * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.01, startTime + i * 0.1 + 0.5);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
 
       osc.start(startTime + i * 0.1);
-      osc.stop(startTime + i * 0.1 + 0.6);
+      osc.stop(startTime + i * 0.1 + 0.55);
     });
   }
 }
@@ -129,10 +120,10 @@ class SoundManager {
 const sounds = new SoundManager();
 
 // -------------------------------------------------------------
-// 2. MASTER PRIZES & RIGGED SHOWCASE SETUP
+// 2. MASTER PRIZES: 2 NON-WINNABLE SHOWCASE & 7 WINNABLE REWARDS
 // -------------------------------------------------------------
 const STORAGE_KEYS = {
-  PRIZES: 'lucky_draw_master_prizes',
+  PRIZES: 'agarwal_master_prizes_v2026_real_v3',
   HISTORY: 'lucky_draw_history'
 };
 
@@ -140,31 +131,31 @@ const DEFAULT_MASTER_PRIZES = {
   showcase: [
     {
       id: 'grand',
-      name: 'iPhone 16 Pro Max',
-      image: '',
+      name: 'iPhone 18 Pro Max',
+      image: 'images/iphone-18-pro-max.webp',
       icon: '📱',
       type: 'grand',
-      badgeText: '👑 GRAND SHOWCASE',
+      badgeText: 'SHOWCASE ONLY',
       tag: 'Grand Showcase Item'
     },
     {
       id: 'mega',
-      name: '$5,000 Gold Gift Card',
-      image: '',
-      icon: '💎',
+      name: '₹20,000 Cash',
+      image: 'images/cash-20000.jpg',
+      icon: '💵',
       type: 'mega',
-      badgeText: '💎 MEGA SHOWCASE',
+      badgeText: 'MEGA SHOWCASE',
       tag: 'Mega Showcase Item'
     }
   ],
   drawable: [
-    { id: 'p1', name: 'Price 1', image: '', icon: '🎁', tag: 'Standard Reward' },
-    { id: 'p2', name: 'Price 2', image: '', icon: '🎧', tag: 'Standard Reward' },
-    { id: 'p3', name: 'Price 3', image: '', icon: '⌚', tag: 'Standard Reward' },
-    { id: 'p4', name: 'Price 4', image: '', icon: '🛍️', tag: 'Standard Reward' },
-    { id: 'p5', name: 'Price 5', image: '', icon: '☕', tag: 'Standard Reward' },
-    { id: 'p6', name: 'Price 6', image: '', icon: '🎟️', tag: 'Standard Reward' },
-    { id: 'p7', name: 'Price 7', image: '', icon: '💳', tag: 'Standard Reward' }
+    { id: 'p1', name: 'Pendrive', image: 'images/pendrive.jpg', icon: '💾', tag: 'Verified Reward' },
+    { id: 'p2', name: 'Cooling Pad', image: 'images/cooling-pad.jpg', icon: '❄️', tag: 'Verified Reward' },
+    { id: 'p3', name: 'Bluetooth Speaker', image: 'images/bluetooth-speaker.png', icon: '🔊', tag: 'Verified Reward' },
+    { id: 'p4', name: 'Wireless Neckband', image: 'images/wireless-neckband.png', icon: '🎧', tag: 'Verified Reward' },
+    { id: 'p5', name: 'Keyboard & Mouse Combo', image: 'images/keyboard-mouse-combo.jpg', icon: '⌨️', tag: 'Verified Reward' },
+    { id: 'p6', name: '₹500 Cash', image: 'images/cash-500.jpg', icon: '💵', tag: 'Verified Reward' },
+    { id: 'p7', name: '₹1,000 Cash', image: 'images/cash-1000.jpg', icon: '💵', tag: 'Verified Reward' }
   ]
 };
 
@@ -173,7 +164,9 @@ function getActivePrizes() {
     const raw = localStorage.getItem(STORAGE_KEYS.PRIZES);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed.showcase && parsed.drawable) return parsed;
+      if (parsed.showcase && parsed.drawable && parsed.drawable.length >= 7) {
+        return parsed;
+      }
     }
   } catch (err) {
     console.error('Error reading master prizes:', err);
@@ -203,6 +196,7 @@ const dom = {
   userPhoneInput: document.getElementById('user-phone'),
   userBillInput: document.getElementById('user-bill'),
   loginErrorMsg: document.getElementById('login-error-msg'),
+  loginMarqueeTrack: document.getElementById('login-marquee-track'),
   displayPhone: document.getElementById('display-phone'),
   displayBill: document.getElementById('display-bill'),
   boxesViewport: document.getElementById('boxes-viewport'),
@@ -230,6 +224,7 @@ const dom = {
 // -------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
+  renderLoginMarquee();
   checkExistingSession();
 });
 
@@ -239,21 +234,21 @@ function setupEventListeners() {
   dom.soundToggleBtn.addEventListener('click', () => {
     const isEnabled = sounds.toggle();
     dom.soundIcon.textContent = isEnabled ? '🔊' : '🔇';
-    dom.soundToggleBtn.querySelector('.btn-text').textContent = isEnabled ? 'Sound ON' : 'Sound OFF';
+    dom.soundToggleBtn.querySelector('.btn-text').textContent = isEnabled ? 'Sound' : 'Muted';
     sounds.playClick();
   });
 
   dom.resetSessionBtn.addEventListener('click', () => {
     sounds.playClick();
-    if (confirm('Log out from Agarwal Computers Lucky Draw?')) {
+    if (confirm('Log out from Agarwal Computer Lucky Draw?')) {
       resetSession();
     }
   });
 
-  // Button directly down from gift ("SHOW ALL GIFTS")
+  // Action Button under the drawn prize
   dom.showAllGiftsBtn.addEventListener('click', handleShowAllGifts);
 
-  // New Draw Pop-Down Button ("Start New Draw")
+  // New Draw Button
   dom.tvStartNewDrawBtn.addEventListener('click', () => {
     sounds.playClick();
     resetSession();
@@ -277,7 +272,39 @@ function setupEventListeners() {
 }
 
 // -------------------------------------------------------------
-// 6. LOGIN / VERIFICATION (Step 1)
+// 6. LOGIN VIEW: LONG CONTINUOUS MARQUEE RIBBON (RIGHT TO LEFT)
+// -------------------------------------------------------------
+function renderLoginMarquee() {
+  if (!dom.loginMarqueeTrack) return;
+
+  const master = getActivePrizes();
+  const allPrizes = [...master.showcase, ...master.drawable];
+
+  // Repeat 4 times so track is over 5,000px long, fitting ANY screen ratio (Ultrawide, 4K, Laptop, Mobile)
+  let html = '';
+  for (let repeat = 0; repeat < 4; repeat++) {
+    allPrizes.forEach(p => {
+      html += `
+        <div class="marquee-card">
+          <div class="marquee-card-img-wrap">
+            ${p.image 
+              ? `<img src="${p.image}" alt="${p.name}" class="marquee-card-img" />` 
+              : `<span class="marquee-card-icon">${p.icon || '🎁'}</span>`}
+          </div>
+          <div class="marquee-card-info">
+            <span class="marquee-card-name">${p.name}</span>
+            <span class="marquee-card-sub">${p.type === 'grand' || p.type === 'mega' ? 'Showcase Item' : 'Store Reward'}</span>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  dom.loginMarqueeTrack.innerHTML = html;
+}
+
+// -------------------------------------------------------------
+// 7. LOGIN / VERIFICATION (Step 1)
 // -------------------------------------------------------------
 function handleLoginSubmit(e) {
   e.preventDefault();
@@ -301,8 +328,8 @@ function handleLoginSubmit(e) {
   state.currentUser = { phone, bill };
   localStorage.setItem('lucky_draw_user', JSON.stringify(state.currentUser));
 
-  dom.displayPhone.textContent = phone;
-  dom.displayBill.textContent = bill;
+  if (dom.displayPhone) dom.displayPhone.textContent = phone;
+  if (dom.displayBill) dom.displayBill.textContent = bill;
 
   transitionToDrawView();
 }
@@ -321,7 +348,7 @@ function transitionToDrawView() {
   setTimeout(() => {
     dom.drawView.classList.add('active-view');
     initLuckyDrawBoxes();
-  }, 200);
+  }, 180);
 }
 
 function checkExistingSession() {
@@ -329,8 +356,8 @@ function checkExistingSession() {
   if (savedUser) {
     try {
       state.currentUser = JSON.parse(savedUser);
-      dom.displayPhone.textContent = state.currentUser.phone;
-      dom.displayBill.textContent = state.currentUser.bill;
+      if (dom.displayPhone) dom.displayPhone.textContent = state.currentUser.phone;
+      if (dom.displayBill) dom.displayBill.textContent = state.currentUser.bill;
       dom.loginView.classList.remove('active-view');
       dom.drawView.classList.add('active-view');
       initLuckyDrawBoxes();
@@ -362,7 +389,7 @@ function resetSession() {
 }
 
 // -------------------------------------------------------------
-// 7. LUCKY DRAW ARENA & BOX GENERATION (Step 2)
+// 8. LUCKY DRAW ARENA & 3x3 BOXES SETUP (Step 2)
 // -------------------------------------------------------------
 function initLuckyDrawBoxes() {
   dom.boxesContainer.innerHTML = '';
@@ -374,9 +401,9 @@ function initLuckyDrawBoxes() {
   state.boxAssignments = new Array(9).fill(null);
   state.hasRevealedAll = false;
 
-  dom.drawStatusPill.className = 'badge-status draw-ready';
-  dom.drawStatusText.textContent = 'Pick 1 Box to Open';
-  dom.instructionsText.innerHTML = 'Select any <strong>1 of the 9 executive gift boxes</strong> below to reveal your prize!';
+  if (dom.drawStatusPill) dom.drawStatusPill.className = 'badge-status draw-ready';
+  if (dom.drawStatusText) dom.drawStatusText.textContent = 'Pick 1 Box';
+  dom.instructionsText.innerHTML = 'Select any <strong>1 of the 9 gift boxes</strong> below to reveal your prize!';
   
   dom.belowGiftActionDock.classList.add('hidden');
   dom.belowGiftActionDock.classList.remove('disappearing');
@@ -396,7 +423,7 @@ function createBoxElement(index) {
 
   boxItem.innerHTML = `
     <div class="box-inner-card">
-      <!-- FRONT FACE -->
+      <!-- FRONT FACE (SKY BLUE WITH WHITE SILK RIBBONS) -->
       <div class="box-face box-front">
         <div class="ribbon-vertical"></div>
         <div class="ribbon-horizontal"></div>
@@ -404,16 +431,18 @@ function createBoxElement(index) {
         <div class="box-label-text">Box #${index + 1}</div>
       </div>
 
-      <!-- BACK FACE -->
+      <!-- BACK FACE (REVEALED PRIZE WITH BIG IMAGE - ZERO OVERFLOW) -->
       <div class="box-face box-back" id="box-back-${index}">
-        <span class="box-state-tag" id="box-tag-${index}">REVEALED</span>
+        <div class="box-back-header">
+          <span class="box-num-pill">Box #${index + 1}</span>
+          <span class="box-state-tag" id="box-tag-${index}">REVEALED</span>
+        </div>
         
         <div class="prize-media-container" id="box-media-${index}">
           <div class="prize-icon-display" id="box-icon-${index}">🎁</div>
         </div>
 
         <h4 class="prize-title-display" id="box-title-${index}">Prize</h4>
-        <small class="box-tag">Box #${index + 1}</small>
       </div>
     </div>
   `;
@@ -423,7 +452,7 @@ function createBoxElement(index) {
 }
 
 // -------------------------------------------------------------
-// 8. SCREEN ZOOM-IN & CINEMATIC UNBOXING
+// 9. SCREEN ZOOM-IN & CINEMATIC DRAWING
 // -------------------------------------------------------------
 function handleBoxClick(boxIndex) {
   if (state.hasDrawn) return;
@@ -437,7 +466,7 @@ function handleBoxClick(boxIndex) {
   sounds.playClick();
   sounds.playZoom();
 
-  // Dim other 8 boxes for focus
+  // Dim other 8 boxes for clean focus
   Array.from(dom.boxesContainer.children).forEach(b => {
     b.classList.remove('can-pick');
     if (b !== boxEl) {
@@ -445,16 +474,16 @@ function handleBoxClick(boxIndex) {
     }
   });
 
-  // Calculate coordinates to zoom screen directly into the clicked box
+  // Zoom into clicked box
   zoomToBox(boxEl);
 
-  // Distribute prizes (guaranteed Price 1-7, showcase in remaining 8)
+  // Distribute prizes (guaranteed 1 of 7 drawable prizes, 2 showcase placed in other 8)
   distributePrizes(boxIndex);
 
-  // After camera zoom settles (600ms), animate box opening
+  // Animate 3D unboxing after camera settles
   setTimeout(() => {
     openWinningBox(boxIndex);
-  }, 600);
+  }, 550);
 }
 
 function zoomToBox(boxEl) {
@@ -467,7 +496,8 @@ function zoomToBox(boxEl) {
   const boxCenterX = boxRect.left + boxRect.width / 2;
   const boxCenterY = boxRect.top + boxRect.height / 2;
 
-  const scale = window.innerWidth < 650 ? 1.4 : 1.65;
+  // Well-proportioned scale
+  const scale = window.innerWidth < 650 ? 1.35 : 1.52;
   const deltaX = (vpCenterX - boxCenterX);
   const deltaY = (vpCenterY - boxCenterY);
 
@@ -479,11 +509,13 @@ function distributePrizes(winningIndex) {
   const drawablePool = master.drawable;
   const showcasePool = master.showcase;
 
+  // Winner strictly receives one of the 7 drawable items
   const drawableShuffled = [...drawablePool].sort(() => Math.random() - 0.5);
   const wonPrize = drawableShuffled[0];
   state.wonPrize = wonPrize;
   state.boxAssignments[winningIndex] = wonPrize;
 
+  // The remaining 8 boxes contain the other 6 drawable + 2 showcase items
   const remainingDrawable = drawableShuffled.slice(1);
   const remaining8Pool = [...remainingDrawable, ...showcasePool].sort(() => Math.random() - 0.5);
 
@@ -496,7 +528,7 @@ function distributePrizes(winningIndex) {
 }
 
 // -------------------------------------------------------------
-// 9. UNBOXING, SPRINKLERS & FLOATING BUTTON APPEARANCE
+// 10. UNBOXING & FLOATING BUTTON DIRECTLY UNDER PRIZE
 // -------------------------------------------------------------
 function openWinningBox(boxIndex) {
   const boxEl = dom.boxesContainer.children[boxIndex];
@@ -516,26 +548,26 @@ function openWinningBox(boxIndex) {
     mediaContainer.innerHTML = `<div class="prize-icon-display">${prize.icon || '🎁'}</div>`;
   }
 
-  // 3D Box Open
+  // 3D Flip
   boxEl.classList.add('is-opened', 'winner-box');
 
-  // Champagne sprinklers fountain
+  // Trigger celebration confetti
   triggerGiftSprinklers(boxEl);
   sounds.playFanfare();
 
   // Record participation
   recordDrawParticipation(boxIndex, prize);
 
-  // Status update
-  dom.drawStatusPill.className = 'badge-status draw-finished';
-  dom.drawStatusText.textContent = `Won: ${prize.name}!`;
+  // Status updates
+  if (dom.drawStatusPill) dom.drawStatusPill.className = 'badge-status draw-finished';
+  if (dom.drawStatusText) dom.drawStatusText.textContent = `Won: ${prize.name}!`;
   dom.instructionsText.innerHTML = `You opened Box #${boxIndex + 1} and won <strong>${prize.name}</strong>!`;
 
   // Show victory toast
   dom.winToastTitle.textContent = prize.name;
   dom.winBanner.classList.remove('hidden');
 
-  // ACTION BUTTON DOWN FROM GIFT: Appears smoothly below the gift
+  // Action button appears directly UNDER the drawn prize
   setTimeout(() => {
     dom.belowGiftActionDock.classList.remove('hidden', 'disappearing');
   }, 400);
@@ -549,24 +581,13 @@ function triggerGiftSprinklers(boxEl) {
   const originY = (rect.top + rect.height * 0.45) / window.innerHeight;
 
   confetti({
-    particleCount: 50,
-    spread: 55,
-    startVelocity: 35,
-    ticks: 120,
+    particleCount: 45,
+    spread: 60,
+    startVelocity: 30,
+    ticks: 100,
     origin: { x: originX, y: originY },
-    colors: ['#2563eb', '#38bdf8', '#60a5fa', '#ffffff', '#1d4ed8']
+    colors: ['#0284c7', '#38bdf8', '#0ea5e9', '#ffffff', '#ffd700']
   });
-
-  setTimeout(() => {
-    confetti({
-      particleCount: 30,
-      spread: 75,
-      startVelocity: 25,
-      ticks: 90,
-      origin: { x: originX, y: originY },
-      colors: ['#2563eb', '#ffffff', '#93c5fd']
-    });
-  }, 160);
 }
 
 function recordDrawParticipation(boxIndex, prize) {
@@ -591,7 +612,7 @@ function recordDrawParticipation(boxIndex, prize) {
 }
 
 // -------------------------------------------------------------
-// 10. BUTTON DISAPPEARS -> ZOOM-OUT -> SEQUENTIAL REVEAL -> NEW DRAW BAR
+// 11. BUTTON DISAPPEARS -> ZOOM-OUT -> SEQUENTIAL REVEAL ALL
 // -------------------------------------------------------------
 function handleShowAllGifts() {
   if (state.hasRevealedAll) return;
@@ -599,26 +620,26 @@ function handleShowAllGifts() {
 
   sounds.playClick();
 
-  // 1. BUTTON DISAPPEARS IMMEDIATELY!
+  // 1. BUTTON DISAPPEARS IMMEDIATELY
   dom.belowGiftActionDock.classList.add('disappearing');
   setTimeout(() => {
     dom.belowGiftActionDock.classList.add('hidden');
-  }, 200);
+  }, 180);
 
   // Dismiss top toast
   dom.winBanner.classList.add('hidden');
 
-  // 2. SMOOTH CAMERA ZOOM-OUT to full 3x3 overview
+  // 2. CAMERA SMOOTHLY ZOOMS OUT TO FULL 3x3 GRID
   dom.boxesContainer.style.transform = 'translate(0px, 0px) scale(1)';
 
-  // Remove dimming from all 8 boxes
+  // Remove dimming from all boxes
   Array.from(dom.boxesContainer.children).forEach(b => {
     b.classList.remove('dimmed-box');
   });
 
-  dom.instructionsText.innerHTML = `Revealing all boxes sequentially...`;
+  dom.instructionsText.innerHTML = `Revealing all remaining gifts...`;
 
-  // 3. AFTER ZOOM-OUT SETTLES (750ms), REVEAL REMAINING 8 BOXES ONE BY ONE
+  // 3. AFTER ZOOM-OUT SETTLES, REVEAL REMAINING 8 BOXES SEQUENTIALLY
   setTimeout(() => {
     const unopenedIndices = [];
     for (let i = 0; i < 9; i++) {
@@ -632,16 +653,16 @@ function handleShowAllGifts() {
         revealUnopenedBox(idx);
         sounds.playPop();
 
-        // When the final (8th) box opens, pop down the "Start New Draw" bar!
+        // When the final box opens, pop up the "Start New Draw" bar
         if (step === unopenedIndices.length - 1) {
           setTimeout(() => {
             dom.instructionsText.innerHTML = `✨ All 9 gifts revealed!`;
             dom.tvNewDrawBar.classList.remove('hidden');
           }, 350);
         }
-      }, step * 240); // 240ms interval between each box opening
+      }, step * 220);
     });
-  }, 750);
+  }, 650);
 }
 
 function revealUnopenedBox(boxIndex) {
@@ -660,16 +681,12 @@ function revealUnopenedBox(boxIndex) {
     mediaContainer.innerHTML = `<div class="prize-icon-display">${prize.icon || '🎁'}</div>`;
   }
 
-  if (prize.type === 'grand') {
+  if (prize.type === 'grand' || prize.type === 'mega') {
     boxEl.classList.add('grand-showcase-box');
-    tagEl.textContent = prize.badgeText || 'GRAND SHOWCASE';
+    tagEl.textContent = 'SHOWCASE';
     tagEl.className = 'box-state-tag tag-grand';
-  } else if (prize.type === 'mega') {
-    boxEl.classList.add('mega-showcase-box');
-    tagEl.textContent = prize.badgeText || 'MEGA SHOWCASE';
-    tagEl.className = 'box-state-tag tag-mega';
   } else {
-    tagEl.textContent = 'MISSED GIFT';
+    tagEl.textContent = 'MISSED';
     tagEl.className = 'box-state-tag tag-missed';
   }
 

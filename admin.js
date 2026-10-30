@@ -1,6 +1,6 @@
 /**
  * =================================================================
- * LUCKY DRAW FESTIVAL - SECURE ADMIN DASHBOARD & CONTROLLER
+ * AGARWAL COMPUTER - ADMIN DASHBOARD & PRIZE MANAGEMENT
  * =================================================================
  */
 
@@ -9,11 +9,11 @@
 // -------------------------------------------------------------
 const ADMIN_CREDENTIALS = {
   username: 'admin',
-  password: 'admin' // Also accept 'admin123'
+  password: 'admin' // Also accepts 'admin123'
 };
 
 const STORAGE_KEYS = {
-  PRIZES: 'lucky_draw_master_prizes',
+  PRIZES: 'agarwal_master_prizes_v2026_real_v3',
   HISTORY: 'lucky_draw_history',
   AUTH: 'admin_authenticated'
 };
@@ -22,31 +22,31 @@ const DEFAULT_MASTER_PRIZES = {
   showcase: [
     {
       id: 'grand',
-      name: 'iPhone 16 Pro Max',
-      image: '',
+      name: 'iPhone 18 Pro Max',
+      image: 'images/iphone-18-pro-max.webp',
       icon: '📱',
       type: 'grand',
-      badgeText: '👑 GRAND PRIZE',
+      badgeText: 'SHOWCASE ONLY',
       tag: 'Grand Showcase Item'
     },
     {
       id: 'mega',
-      name: '$5,000 Gold Gift Card',
-      image: '',
-      icon: '💎',
+      name: '₹20,000 Cash',
+      image: 'images/cash-20000.jpg',
+      icon: '💵',
       type: 'mega',
-      badgeText: '💎 MEGA PRIZE',
+      badgeText: 'MEGA SHOWCASE',
       tag: 'Mega Showcase Item'
     }
   ],
   drawable: [
-    { id: 'p1', name: 'Price 1', image: '', icon: '🎁', tag: 'Standard Reward' },
-    { id: 'p2', name: 'Price 2', image: '', icon: '🎧', tag: 'Standard Reward' },
-    { id: 'p3', name: 'Price 3', image: '', icon: '⌚', tag: 'Standard Reward' },
-    { id: 'p4', name: 'Price 4', image: '', icon: '🛍️', tag: 'Standard Reward' },
-    { id: 'p5', name: 'Price 5', icon: '☕', tag: 'Standard Reward' },
-    { id: 'p6', name: 'Price 6', icon: '🎟️', tag: 'Standard Reward' },
-    { id: 'p7', name: 'Price 7', icon: '💳', tag: 'Standard Reward' }
+    { id: 'p1', name: 'Pendrive', image: 'images/pendrive.jpg', icon: '💾', tag: 'Verified Reward' },
+    { id: 'p2', name: 'Cooling Pad', image: 'images/cooling-pad.jpg', icon: '❄️', tag: 'Verified Reward' },
+    { id: 'p3', name: 'Bluetooth Speaker', image: 'images/bluetooth-speaker.png', icon: '🔊', tag: 'Verified Reward' },
+    { id: 'p4', name: 'Wireless Neckband', image: 'images/wireless-neckband.png', icon: '🎧', tag: 'Verified Reward' },
+    { id: 'p5', name: 'Keyboard & Mouse Combo', image: 'images/keyboard-mouse-combo.jpg', icon: '⌨️', tag: 'Verified Reward' },
+    { id: 'p6', name: '₹500 Cash', image: 'images/cash-500.jpg', icon: '💵', tag: 'Verified Reward' },
+    { id: 'p7', name: '₹1,000 Cash', image: 'images/cash-1000.jpg', icon: '💵', tag: 'Verified Reward' }
   ]
 };
 
@@ -85,21 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventListeners() {
-  // Login Form
   dom.loginForm.addEventListener('submit', handleLogin);
-
-  // Logout
   dom.logoutBtn.addEventListener('click', handleLogout);
-
-  // Tabs
   dom.tabPrizesBtn.addEventListener('click', () => switchTab('prizes'));
   dom.tabHistoryBtn.addEventListener('click', () => switchTab('history'));
-
-  // Save & Reset
   dom.saveAllBtn.addEventListener('click', handleSavePrizes);
   dom.resetDefaultBtn.addEventListener('click', handleResetDefaults);
-
-  // History Clear
   dom.clearHistoryBtn.addEventListener('click', handleClearHistory);
 }
 
@@ -120,7 +111,6 @@ function handleLogin(e) {
   const user = dom.adminUser.value.trim();
   const pass = dom.adminPass.value.trim();
 
-  // Validate Admin Credentials
   const isValidUser = user.toLowerCase() === ADMIN_CREDENTIALS.username.toLowerCase();
   const isValidPass = pass === ADMIN_CREDENTIALS.password || pass === 'admin123';
 
@@ -177,7 +167,7 @@ function loadPrizesFromStorage() {
     const raw = localStorage.getItem(STORAGE_KEYS.PRIZES);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed.showcase && parsed.drawable) {
+      if (parsed.showcase && parsed.drawable && parsed.drawable.length >= 7) {
         return parsed;
       }
     }
@@ -195,14 +185,12 @@ function savePrizesToStorage(prizes) {
 // 6. RENDER PRIZES MANAGEMENT CARDS
 // -------------------------------------------------------------
 function renderPrizesUI() {
-  // Render Showcase (2)
   dom.showcaseContainer.innerHTML = '';
   currentPrizes.showcase.forEach((prize, index) => {
     const card = createPrizeCard(prize, 'showcase', index);
     dom.showcaseContainer.appendChild(card);
   });
 
-  // Render Drawable (7)
   dom.drawableContainer.innerHTML = '';
   currentPrizes.drawable.forEach((prize, index) => {
     const card = createPrizeCard(prize, 'drawable', index);
@@ -270,7 +258,6 @@ function createPrizeCard(prize, group, index) {
     </div>
   `;
 
-  // Attach File Upload Listener
   const fileInput = card.querySelector(`#file-${group}-${index}`);
   const removeBtn = card.querySelector(`#remove-btn-${group}-${index}`);
 
@@ -292,7 +279,6 @@ function createPrizeCard(prize, group, index) {
     }
   });
 
-  // Attach Remove Photo Listener
   removeBtn.addEventListener('click', () => {
     currentPrizes[group][index].image = '';
     updatePreview(group, index, '');
@@ -319,7 +305,6 @@ function updatePreview(group, index, imageData) {
 // 7. SAVE ALL PRIZES
 // -------------------------------------------------------------
 function handleSavePrizes() {
-  // Read current text values from inputs
   currentPrizes.showcase.forEach((prize, idx) => {
     const nameInput = document.getElementById(`name-showcase-${idx}`);
     if (nameInput) prize.name = nameInput.value.trim() || prize.name;
@@ -374,11 +359,11 @@ function renderHistoryTable() {
       <td>${i + 1}</td>
       <td style="color: var(--text-muted);">${item.timestamp || '-'}</td>
       <td><strong>${item.phone}</strong></td>
-      <td><span style="color: var(--primary-gold); font-weight:700;">${item.bill}</span></td>
+      <td><span style="color: var(--c-blue-light); font-weight:700;">${item.bill}</span></td>
       <td>
         <div style="display:flex; align-items:center; gap:0.5rem;">
-          ${item.prizeImage ? `<img src="${item.prizeImage}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; border:1px solid #ffd700;" />` : ''}
-          <strong style="color: #68d391;">${item.prizeName}</strong>
+          ${item.prizeImage ? `<img src="${item.prizeImage}" style="width:28px; height:28px; object-fit:cover; border-radius:4px; border:1px solid rgba(255,255,255,0.15);" />` : ''}
+          <strong style="color: #ffffff;">${item.prizeName}</strong>
         </div>
       </td>
       <td><span class="box-tag">Box #${(item.boxIndex ?? 0) + 1}</span></td>
