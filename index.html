@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agarwal Computer - Customer Lucky Draw</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=blue_clean_2026">
+  <!-- Lightweight Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Sleek, Compact Navigation Header -->
+  <header class="top-nav">
+    <div class="brand-wrapper">
+      <a href="index.html" class="brand-logo-link" title="Agarwal Computer">
+        <img src="logo-blue.svg" alt="Agarwal Computer" class="brand-logo-img" />
+      </a>
+    </div>
+
+    <div class="nav-actions">
+      <button id="sound-toggle-btn" class="icon-btn" title="Toggle Sound">
+        <span id="sound-icon">🔊</span>
+        <span class="btn-text">Sound</span>
+      </button>
+      <button id="rules-btn" class="pill-btn">Rules</button>
+      <button id="reset-session-btn" class="pill-btn danger-outline" title="Reset Session / Logout">Logout</button>
+    </div>
+  </header>
+
+  <main class="app-container">
+
+    <!-- ================= STEP 1: BILL VERIFICATION / LOGIN ================= -->
+    <section id="login-view" class="view-panel active-view">
+      <div class="login-card">
+        <div class="login-header">
+          <h1 class="login-title">Customer Lucky Draw</h1>
+          <p class="login-subtitle">Enter your registered mobile & invoice number to participate.</p>
+        </div>
+
+        <form id="lucky-login-form" autocomplete="off">
+          <div class="input-group">
+            <label for="user-phone">Mobile Number</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📱</span>
+              <input 
+                type="tel" 
+                id="user-phone" 
+                placeholder="10-digit mobile number" 
+                maxlength="15" 
+                required 
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="user-bill">Store Invoice / Bill Number</label>
+            <div class="input-wrapper">
+              <span class="input-icon">🧾</span>
+              <input 
+                type="text" 
+                id="user-bill" 
+                placeholder="e.g. AC-2026 or INV-8891" 
+                maxlength="25" 
+                required 
+              />
+            </div>
+          </div>
+
+          <div id="login-error-msg" class="error-banner hidden"></div>
+
+          <button type="submit" id="btn-login-submit" class="cta-primary-btn">
+            <span>Proceed to Lucky Draw</span>
+            <span class="arrow-icon">➔</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= STEP 2: LUCKY DRAW ARENA ================= -->
+    <section id="draw-view" class="view-panel">
+      <!-- Compact User Status Ribbon -->
+      <div class="user-status-bar">
+        <div class="status-left">
+          <span class="status-icon">🎁</span>
+          <div class="status-info">
+            <span class="status-phone">Phone: <strong id="display-phone">-</strong></span>
+            <span class="status-separator">•</span>
+            <span class="status-bill">Invoice: <strong id="display-bill">-</strong></span>
+          </div>
+        </div>
+        <div class="status-right">
+          <div id="draw-status-pill" class="badge-status draw-ready">
+            <span class="pulse-dot"></span>
+            <span id="draw-status-text">Pick 1 Box</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Draw Instruction Header -->
+      <div class="draw-header-banner">
+        <h2 class="section-title">Select Your Lucky Box</h2>
+        <p class="section-desc" id="instructions-text">
+          Choose any <strong>1 of the 9 gift boxes</strong> to reveal your prize!
+        </p>
+      </div>
+
+      <!-- CINEMATIC 3x3 BOXES VIEWPORT -->
+      <div class="boxes-stage-viewport" id="boxes-viewport">
+        <div class="boxes-grid" id="boxes-container">
+          <!-- 9 Gift Boxes generated dynamically by script.js -->
+        </div>
+      </div>
+
+      <!-- Action Button Dock Directly Below The Gift -->
+      <div id="below-gift-action-dock" class="below-gift-action-dock hidden">
+        <button id="show-all-gifts-btn" class="below-gift-btn">
+          <span>Show All Boxes (Reveal 9/9)</span>
+          <span class="btn-arrow-icon">➔</span>
+        </button>
+      </div>
+
+      <!-- Bottom New Draw Bar (Appears when all 9 boxes open) -->
+      <div id="tv-new-draw-bar" class="tv-new-draw-bar hidden">
+        <div class="new-draw-banner-card">
+          <div class="new-draw-text">
+            ✨ <strong>All 9 Gifts Revealed!</strong> Ready for next customer?
+          </div>
+          <button id="tv-start-new-draw-btn" class="tv-new-draw-btn">
+            <span>🔄 Start New Draw</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Celebration Win Notification Toast -->
+  <div id="win-banner" class="win-banner-toast hidden">
+    <div class="win-toast-content">
+      <span class="win-toast-badge">Official Store Reward</span>
+      <h3 id="win-toast-title" class="win-toast-name">Prize Name</h3>
+      <p class="win-toast-note">Present this invoice at billing counter to collect reward.</p>
+    </div>
+  </div>
+
+  <!-- Rules / Terms Modal -->
+  <div id="rules-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="close-rules-btn" aria-label="Close">&times;</button>
+      <h2 class="modal-title">Promotion Rules</h2>
+      <p class="modal-desc">Guidelines for Agarwal Computer Lucky Draw event.</p>
+
+      <div class="rules-list">
+        <div class="rule-item">
+          <span class="rule-num">1</span>
+          <div><strong>One Draw Per Bill:</strong> Each store bill/invoice issued by Agarwal Computer entitles the holder to exactly one lucky draw.</div>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">2</span>
+          <div><strong>100% Genuine Rewards:</strong> Every box contains an official store gift, computer accessory, voucher, or gadget.</div>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">3</span>
+          <div><strong>Transparent Showcase:</strong> After picking your gift, click "Show All Boxes" to view all remaining prizes.</div>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">4</span>
+          <div><strong>Redemption:</strong> Please present your registered invoice number at the billing counter to claim your reward.</div>
+        </div>
+      </div>
+
+      <button id="rules-okay-btn" class="cta-primary-btn" style="margin-top: 1rem;">Understood</button>
+    </div>
+  </div>
+
+  <!-- Minimal Sleek Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <span>© 2026 <strong>Agarwal Computer</strong>. All Rights Reserved.</span>
+      <span class="footer-note">Customer Privilege Rewards Program</span>
+    </div>
+  </footer>
+
+  <script src="script.js?v=blue_clean_2026"></script>
+</body>
+</html>
