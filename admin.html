@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=white_sky_2026_real_v2">
+  <link rel="stylesheet" href="style.css?v=perfect_alignment_v1">
 </head>
 <body class="admin-body">
 
@@ -112,30 +112,138 @@
 
       </section>
 
-      <!-- TAB 2: DRAW PARTICIPANT LOGS -->
-      <section id="panel-history" class="admin-tab-panel hidden" style="margin-top: 1.5rem;">
-        <div class="admin-section-header" style="display: flex; justify-content: space-between; align-items: center;">
+      <!-- TAB 2: DRAW PARTICIPANT LOGS & REAL-TIME AUDIT -->
+      <section id="panel-history" class="admin-tab-panel hidden" style="margin-top: 1rem;">
+        
+        <!-- Header & Top Action Controls -->
+        <div class="admin-section-header history-header-flex">
           <div>
-            <h3>📋 Customer Draw Participation Records</h3>
-            <p>List of all verified customers who participated in the draw, their bill number, and what prize they won.</p>
+            <h3>
+              <span>📋 Customer Draw Records</span>
+              <span class="live-sync-badge" title="Instantly updates when customer opens any gift box">
+                <span class="live-pulse-dot"></span>
+                <span>LIVE SYNC ACTIVE</span>
+              </span>
+            </h3>
+            <p>Real-time audit log of customer draws, invoice numbers, and won prizes with instant sync.</p>
           </div>
-          <button id="clear-history-btn" class="pill-btn danger-outline">🗑️ Clear History Logs</button>
+          <div class="history-top-actions">
+            <button id="refresh-history-btn" class="pill-btn primary-outline" title="Refresh records immediately">
+              <span class="btn-refresh-icon" id="refresh-icon">🔄</span>
+              <span>Refresh</span>
+            </button>
+            <button id="export-csv-btn" class="pill-btn" title="Download Excel / CSV spreadsheet">
+              <span>📥 Export CSV</span>
+            </button>
+            <button id="clear-history-btn" class="pill-btn danger-outline" title="Delete all history">
+              <span>🗑️ Clear History</span>
+            </button>
+          </div>
         </div>
 
-        <div class="history-table-wrapper glass-panel" style="margin-top: 1rem;">
+        <!-- 4 Quick Stats Analytics Cards -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background: #e0f2fe; color: #0284c7;">🎁</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Draws</span>
+              <span class="stat-value" id="stat-total-draws">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background: #dcfce7; color: #16a34a;">📅</div>
+            <div class="stat-info">
+              <span class="stat-label">Today's Draws</span>
+              <span class="stat-value" id="stat-today-draws">0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background: #fef3c7; color: #d97706;">💵</div>
+            <div class="stat-info">
+              <span class="stat-label">Cash Rewarded</span>
+              <span class="stat-value" id="stat-cash-total">₹0</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background: #f3e8ff; color: #9333ea;">🏆</div>
+            <div class="stat-info">
+              <span class="stat-label">Top Won Prize</span>
+              <span class="stat-value stat-small" id="stat-top-prize">None</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Filter & Live Search Toolbar -->
+        <div class="history-filter-toolbar">
+          <div class="filter-search-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="history-search-input" 
+              placeholder="Search phone, bill / invoice, prize..." 
+              autocomplete="off"
+            />
+            <button id="clear-search-btn" class="clear-search-btn hidden" title="Clear search">&times;</button>
+          </div>
+
+          <div class="filter-controls-group">
+            <!-- Date Filter Preset -->
+            <div class="filter-select-wrap">
+              <span class="filter-label-icon">📅</span>
+              <select id="history-date-filter" class="filter-select">
+                <option value="all">All Dates</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="last7">Last 7 Days</option>
+                <option value="thisMonth">This Month</option>
+                <option value="custom">Specific Date ➔</option>
+              </select>
+            </div>
+
+            <!-- Specific Date Picker -->
+            <div id="custom-date-container" class="filter-custom-date hidden">
+              <input type="date" id="history-custom-date" class="date-input" />
+            </div>
+
+            <!-- Prize Filter -->
+            <div class="filter-select-wrap">
+              <span class="filter-label-icon">🎁</span>
+              <select id="history-prize-filter" class="filter-select">
+                <option value="all">All Prizes</option>
+              </select>
+            </div>
+
+            <!-- Reset Filters Button -->
+            <button id="reset-filters-btn" class="pill-btn" style="padding: 0.45rem 0.9rem;" title="Reset all filters">
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Counter & Status Bar -->
+        <div class="history-results-bar">
+          <span id="history-count-text">Showing <strong>0</strong> records</span>
+          <span id="history-sync-indicator" class="sync-tag">⚡ Live Auto-Sync Active</span>
+        </div>
+
+        <!-- Responsive Table Container -->
+        <div class="history-table-wrapper">
           <table class="admin-table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Date & Time</th>
-                <th>Mobile Number</th>
-                <th>Bill / Invoice #</th>
-                <th>Prize Won</th>
-                <th>Box Picked</th>
+                <th style="width: 50px;">#</th>
+                <th style="min-width: 150px;">Date & Time</th>
+                <th style="min-width: 140px;">Customer Mobile</th>
+                <th style="min-width: 130px;">Bill / Invoice #</th>
+                <th style="min-width: 220px;">Prize Won</th>
+                <th style="min-width: 90px;">Box Picked</th>
               </tr>
             </thead>
             <tbody id="history-table-body">
-              <!-- Rendered dynamically -->
+              <!-- Rendered dynamically by admin.js -->
             </tbody>
           </table>
         </div>
@@ -144,6 +252,6 @@
     </main>
   </div>
 
-  <script src="admin.js"></script>
+  <script src="admin.js?v=white_sky_2026_real_v6"></script>
 </body>
 </html>

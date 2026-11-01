@@ -480,6 +480,9 @@ function handleBoxClick(boxIndex) {
   // Distribute prizes (guaranteed 1 of 7 drawable prizes, 2 showcase placed in other 8)
   distributePrizes(boxIndex);
 
+  // IMMEDIATELY RECORD PARTICIPATION ON GIFT CLICK (Instant Realtime Reflection in Admin Panel)
+  recordDrawParticipation(boxIndex, state.wonPrize);
+
   // Animate 3D unboxing after camera settles
   setTimeout(() => {
     openWinningBox(boxIndex);
@@ -488,18 +491,23 @@ function handleBoxClick(boxIndex) {
 
 function zoomToBox(boxEl) {
   const vpRect = dom.boxesViewport.getBoundingClientRect();
+  const contRect = dom.boxesContainer.getBoundingClientRect();
   const boxRect = boxEl.getBoundingClientRect();
 
   const vpCenterX = vpRect.left + vpRect.width / 2;
   const vpCenterY = vpRect.top + vpRect.height / 2;
+
+  const contCenterX = contRect.left + contRect.width / 2;
+  const contCenterY = contRect.top + contRect.height / 2;
 
   const boxCenterX = boxRect.left + boxRect.width / 2;
   const boxCenterY = boxRect.top + boxRect.height / 2;
 
   // Well-proportioned scale
   const scale = window.innerWidth < 650 ? 1.35 : 1.52;
-  const deltaX = (vpCenterX - boxCenterX);
-  const deltaY = (vpCenterY - boxCenterY);
+  // Exact mathematical centering taking transform-origin (container center) & scale into account
+  const deltaX = vpCenterX - (contCenterX + (boxCenterX - contCenterX) * scale);
+  const deltaY = vpCenterY - (contCenterY + (boxCenterY - contCenterY) * scale);
 
   dom.boxesContainer.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
 }
@@ -555,9 +563,6 @@ function openWinningBox(boxIndex) {
   triggerGiftSprinklers(boxEl);
   sounds.playFanfare();
 
-  // Record participation
-  recordDrawParticipation(boxIndex, prize);
-
   // Status updates
   if (dom.drawStatusPill) dom.drawStatusPill.className = 'badge-status draw-finished';
   if (dom.drawStatusText) dom.drawStatusText.textContent = `Won: ${prize.name}!`;
@@ -592,13 +597,33 @@ function triggerGiftSprinklers(boxEl) {
 
 function recordDrawParticipation(boxIndex, prize) {
   try {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const yyyy = now.getFullYear();
+    const mm = pad(now.getMonth() + 1);
+    const dd = pad(now.getDate());
+    const dateStr = `${yyyy}-${mm}-${dd}`;
+
     const historyItem = {
-      timestamp: new Date().toLocaleString(),
-      phone: state.currentUser ? state.currentUser.phone : 'Anonymous',
+      id: 'draw_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+      timestamp: now.toLocaleString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }),
+      isoDate: now.toISOString(),
+      dateStr: dateStr, // "2026-10-31" for instant exact date filtering
+      phone: state.currentUser ? state.currentUser.phone : 'Walk-in Customer',
       bill: state.currentUser ? state.currentUser.bill : 'N/A',
       prizeName: prize.name,
       prizeImage: prize.image || '',
-      boxIndex: boxIndex
+      prizeIcon: prize.icon || '🎁',
+      boxIndex: boxIndex,
+      status: 'Handed Over'
     };
 
     let history = [];
