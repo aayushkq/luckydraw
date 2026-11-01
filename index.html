@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=perfect_alignment_v1">
+  <link rel="stylesheet" href="style.css?v=smart_glass_clean_images_v4">
   <!-- Lightweight Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -35,48 +35,63 @@
 
     <!-- ================= STEP 1: BILL VERIFICATION / LOGIN ================= -->
     <section id="login-view" class="view-panel active-view">
-      <div class="login-card">
-        <div class="login-header">
-          <h1 class="login-title">Customer Lucky Draw</h1>
-          <p class="login-subtitle">Enter your registered mobile & invoice number to reveal your prize.</p>
+
+      <div class="login-hero-stage">
+        <!-- Festive Scattered Floating Gift Boxes in Empty Space (Strictly Above Ribbon) -->
+        <div class="scattered-gifts-layer" aria-hidden="true">
+          <span class="scatter-gift scatter-g1" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g2" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g3" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g4" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g5" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g6" title="Gift">🎁</span>
+          <span class="scatter-gift scatter-g7">✨</span>
+          <span class="scatter-gift scatter-g8">✨</span>
         </div>
 
-        <form id="lucky-login-form" autocomplete="off">
-          <div class="input-group">
-            <label for="user-phone">Mobile Number</label>
-            <div class="input-wrapper">
-              <span class="input-icon">📱</span>
-              <input 
-                type="tel" 
-                id="user-phone" 
-                placeholder="10-digit mobile number" 
-                maxlength="15" 
-                required 
-              />
-            </div>
+        <div class="login-card">
+          <div class="login-header">
+            <h1 class="login-title">Customer Lucky Draw</h1>
+            <p class="login-subtitle">Enter your registered mobile & invoice number to reveal your prize.</p>
           </div>
 
-          <div class="input-group">
-            <label for="user-bill">Store Invoice / Bill Number</label>
-            <div class="input-wrapper">
-              <span class="input-icon">🧾</span>
-              <input 
-                type="text" 
-                id="user-bill" 
-                placeholder="e.g. AC-2026 or INV-8891" 
-                maxlength="25" 
-                required 
-              />
+          <form id="lucky-login-form" autocomplete="off">
+            <div class="input-group">
+              <label for="user-phone">Mobile Number</label>
+              <div class="input-wrapper">
+                <span class="input-icon">📱</span>
+                <input 
+                  type="tel" 
+                  id="user-phone" 
+                  placeholder="10-digit mobile number" 
+                  maxlength="15" 
+                  required 
+                />
+              </div>
             </div>
-          </div>
 
-          <div id="login-error-msg" class="error-banner hidden"></div>
+            <div class="input-group">
+              <label for="user-bill">Store Invoice / Bill Number</label>
+              <div class="input-wrapper">
+                <span class="input-icon">🧾</span>
+                <input 
+                  type="text" 
+                  id="user-bill" 
+                  placeholder="e.g. AC-2026 or INV-8891" 
+                  maxlength="25" 
+                  required 
+                />
+              </div>
+            </div>
 
-          <button type="submit" id="btn-login-submit" class="cta-primary-btn">
-            <span>Proceed to Lucky Draw</span>
-            <span class="arrow-icon">➔</span>
-          </button>
-        </form>
+            <div id="login-error-msg" class="error-banner hidden"></div>
+
+            <button type="submit" id="btn-login-submit" class="cta-primary-btn">
+              <span>Proceed to Lucky Draw</span>
+              <span class="arrow-icon">➔</span>
+            </button>
+          </form>
+        </div>
       </div>
 
       <!-- Live Horizontal Scrolling Ribbon of All Gift Items (Right to Left) -->
@@ -100,30 +115,30 @@
       <div class="draw-header-banner">
         <h2 class="section-title">Select Your Lucky Box</h2>
         <p class="section-desc" id="instructions-text">
-          Choose any <strong>1 of the 9 gift boxes</strong> below to reveal your reward!
+          Choose any <strong>1 of the 15 gift boxes</strong> below to reveal your reward!
         </p>
       </div>
 
-      <!-- CENTERED 3x3 BOXES VIEWPORT -->
+      <!-- CENTERED 5x3 BOXES VIEWPORT -->
       <div class="boxes-stage-viewport" id="boxes-viewport">
         <div class="boxes-grid" id="boxes-container">
-          <!-- 9 Gift Boxes generated dynamically by script.js -->
+          <!-- 15 Gift Boxes (5x3) generated dynamically by script.js -->
         </div>
 
         <!-- Action Button Dock: Positioned Directly Below The Drawn Box -->
         <div id="below-gift-action-dock" class="below-gift-action-dock hidden">
           <button id="show-all-gifts-btn" class="below-gift-btn">
-            <span>Show All Boxes (Reveal 9/9)</span>
+            <span>Show All Boxes (Reveal All 15)</span>
             <span class="btn-arrow-icon">➔</span>
           </button>
         </div>
       </div>
 
-      <!-- Bottom New Draw Bar (Appears when all 9 boxes open) -->
+      <!-- Bottom New Draw Bar (Appears when all 15 boxes open) -->
       <div id="tv-new-draw-bar" class="tv-new-draw-bar hidden">
         <div class="new-draw-banner-card">
           <div class="new-draw-text">
-            ✨ <strong>All 9 Gifts Revealed!</strong> Ready for next customer?
+            ✨ <strong>All 15 Gifts Revealed!</strong> Ready for next customer?
           </div>
           <button id="tv-start-new-draw-btn" class="tv-new-draw-btn">
             <span>🔄 Start New Draw</span>
@@ -185,6 +200,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=perfect_alignment_v1"></script>
+  <script src="script.js?v=smart_glass_clean_images_v4"></script>
 </body>
 </html>

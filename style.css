@@ -152,7 +152,7 @@ body {
    ================================================================= */
 .app-container {
   width: 100%;
-  max-width: 960px;
+  max-width: 1220px;
   margin: 0 auto;
   padding: 1.2rem 1.2rem;
   flex: 1;
@@ -181,11 +181,152 @@ body {
 /* =================================================================
    STEP 1: LOGIN / BILL VERIFICATION VIEW
    ================================================================= */
-.login-card {
+#login-view {
+  position: relative;
   width: 100%;
-  max-width: 440px;
+}
+
+/* Stage Area strictly framing login card and its side empty spaces (ABOVE ribbon) */
+.login-hero-stage {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 1.6rem;
+  overflow: visible;
+}
+
+/* Scattered Floating Decorative Gift Boxes in Empty Space (Strictly Above Ribbon) */
+.scattered-gifts-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.scatter-gift {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 8px 18px rgba(185, 28, 28, 0.28));
+  opacity: 0.85;
+  will-change: transform;
+}
+
+/* Positioned cleanly in the left and right empty wings only - ZERO overlap on ribbon */
+.scatter-g1 {
+  top: 6%;
+  left: 6%;
+  font-size: 3.5rem;
+  --rot: -15deg;
+  animation: floatGiftA 5.5s ease-in-out infinite;
+}
+
+.scatter-g2 {
+  top: 48%;
+  left: 12%;
+  font-size: 2.4rem;
+  --rot: 14deg;
+  animation: floatGiftB 6.8s ease-in-out infinite;
+  opacity: 0.78;
+}
+
+.scatter-g3 {
+  bottom: 6%;
+  left: 7%;
+  font-size: 2.8rem;
+  --rot: -10deg;
+  animation: floatGiftA 6.2s ease-in-out infinite;
+}
+
+.scatter-g4 {
+  top: 8%;
+  right: 6%;
+  font-size: 3.4rem;
+  --rot: 18deg;
+  animation: floatGiftB 5.8s ease-in-out infinite;
+}
+
+.scatter-g5 {
+  top: 46%;
+  right: 11%;
+  font-size: 2.5rem;
+  --rot: -16deg;
+  animation: floatGiftA 7s ease-in-out infinite;
+  opacity: 0.78;
+}
+
+.scatter-g6 {
+  bottom: 8%;
+  right: 7%;
+  font-size: 2.9rem;
+  --rot: 12deg;
+  animation: floatGiftB 6.4s ease-in-out infinite;
+}
+
+.scatter-g7 {
+  top: 22%;
+  left: 23%;
+  font-size: 1.6rem;
+  color: #f59e0b;
+  --rot: 12deg;
+  animation: floatSparkle 3.6s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.scatter-g8 {
+  top: 20%;
+  right: 22%;
+  font-size: 1.6rem;
+  color: #f59e0b;
+  --rot: -14deg;
+  animation: floatSparkle 4s ease-in-out infinite 0.6s;
+  opacity: 0.7;
+}
+
+@keyframes floatGiftA {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(-16px) rotate(calc(var(--rot, 0deg) + 6deg));
+  }
+}
+
+@keyframes floatGiftB {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--rot, 0deg));
+  }
+  50% {
+    transform: translateY(16px) rotate(calc(var(--rot, 0deg) - 6deg));
+  }
+}
+
+@keyframes floatSparkle {
+  0%, 100% {
+    transform: scale(0.9) rotate(var(--rot, 0deg));
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.3) rotate(calc(var(--rot, 0deg) + 12deg));
+    opacity: 0.9;
+  }
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 390px;
   margin: 0 auto;
-  padding: 2.2rem 2rem;
+  padding: 1.5rem 1.6rem;
   background: var(--c-surface-card);
   border: 1px solid var(--c-sky-border);
   border-radius: var(--radius-lg);
@@ -194,22 +335,22 @@ body {
 }
 
 .login-header {
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.1rem;
 }
 
 .login-title {
   font-family: var(--font-brand);
-  font-size: 1.65rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: 0.3px;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
 }
 
 .login-subtitle {
   color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.45;
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 #lucky-login-form {
@@ -217,15 +358,15 @@ body {
 }
 
 .input-group {
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.85rem;
 }
 
 .input-group label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--text-body);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .input-wrapper {
@@ -244,13 +385,13 @@ body {
 
 .input-wrapper input {
   width: 100%;
-  padding: 0.78rem 1rem 0.78rem 2.5rem;
+  padding: 0.62rem 1rem 0.62rem 2.5rem;
   background: #f8fafc;
   border: 1.5px solid var(--border-light);
   border-radius: var(--radius-md);
   color: var(--text-main);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   outline: none;
   transition: all 0.2s ease;
 }
@@ -315,25 +456,27 @@ body {
    LOGIN SCREEN: FULL-WIDTH SCREEN-FITTING SCROLLING MARQUEE RIBBON
    ================================================================= */
 .login-prizes-ribbon {
+  position: relative;
+  z-index: 10;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  margin-top: 2.2rem;
-  background: #f0f7ff;
-  border-top: 1px solid var(--c-sky-border);
-  border-bottom: 1px solid var(--c-sky-border);
-  padding: 0.9rem 0 1.1rem;
+  margin-top: 1.6rem;
+  background: linear-gradient(180deg, #e8f5ff 0%, #f0f8ff 100%);
+  border-top: 2px solid var(--c-sky-border);
+  border-bottom: 2px solid var(--c-sky-border);
+  padding: 1.1rem 0 1.3rem;
   overflow: hidden;
 }
 
 .ribbon-header-label {
   text-align: center;
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   color: var(--c-sky-hover);
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 .ribbon-disclaimer-note {
@@ -341,7 +484,7 @@ body {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--text-muted);
-  margin-top: 0.65rem;
+  margin-top: 0.8rem;
   letter-spacing: 0.2px;
 }
 
@@ -349,19 +492,17 @@ body {
   width: 100%;
   overflow: hidden;
   position: relative;
-  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
 }
 
 .marquee-scroll-track {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   width: max-content;
-  animation: scrollRightToLeft 42s linear infinite;
-}
-
-.marquee-scroll-track:hover {
-  animation-play-state: paused;
+  padding: 10px 0 6px;
+  animation: scrollRightToLeft 38s linear infinite;
+  /* Continuously moves without stopping even on hover */
 }
 
 @keyframes scrollRightToLeft {
@@ -374,32 +515,90 @@ body {
 }
 
 .marquee-card {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.65rem;
   background: #ffffff;
-  border: 1px solid #e0f2fe;
-  border-radius: var(--radius-md);
-  padding: 0.5rem 0.95rem;
+  border: 1.5px solid #bae6fd;
+  border-radius: 12px;
+  padding: 1rem 1.1rem 0.85rem;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.06);
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  min-width: 140px;
+  box-shadow: 0 4px 16px rgba(2, 132, 199, 0.1);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .marquee-card:hover {
   border-color: var(--c-sky-primary);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.18);
+}
+
+/* Eye-Catching Showcase Trap Card - Always Prominent on the Moving Ribbon */
+.marquee-card.showcase-trap {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
+  border: 2px solid #0284c7;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.22), 0 0 14px rgba(56, 189, 248, 0.28);
+  transform: scale(1.03);
+}
+
+.marquee-card.showcase-trap:hover {
+  transform: translateY(-4px) scale(1.06);
+  border-color: #0369a1;
+  box-shadow: 0 10px 28px rgba(2, 132, 199, 0.35);
+}
+
+.marquee-trap-badge {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  color: #ffffff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.4);
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+
+.marquee-card.showcase-trap .marquee-card-img-wrap {
+  background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+  border: 1.5px solid #7dd3fc;
+  box-shadow: inset 0 2px 6px rgba(2, 132, 199, 0.12);
+}
+
+.marquee-card.showcase-trap .marquee-card-img {
+  filter: drop-shadow(0 4px 8px rgba(2, 132, 199, 0.22));
+}
+
+.marquee-card.showcase-trap .marquee-card-name {
+  color: #0369a1;
+  font-weight: 800;
+}
+
+.marquee-card.showcase-trap .marquee-card-sub {
+  color: #d97706;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 .marquee-card-img-wrap {
-  width: 48px;
-  height: 48px;
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
-  border-radius: var(--radius-sm);
-  border: 1px solid #e2e8f0;
+  background: #f0f8ff;
+  border-radius: 10px;
+  border: 1.5px solid #e0f2fe;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -408,27 +607,30 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  padding: 6px;
 }
 
 .marquee-card-icon {
-  font-size: 1.4rem;
+  font-size: 2.6rem;
 }
 
 .marquee-card-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
 }
 
 .marquee-card-name {
-  font-size: 0.86rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-main);
   white-space: nowrap;
 }
 
 .marquee-card-sub {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--c-sky-hover);
   font-weight: 600;
 }
@@ -530,7 +732,7 @@ body {
 .boxes-stage-viewport {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 1280px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -540,19 +742,20 @@ body {
 
 .boxes-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.1rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.95rem;
   width: 100%;
+  max-width: 1280px;
   perspective: 1200px;
   transform-origin: center center;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 
-/* Individual Box - Generous & High Quality */
+/* Individual Box - Generous & High Quality (Enlarged) */
 .gift-box-item {
   position: relative;
-  height: 175px;
+  height: 178px;
   cursor: pointer;
   user-select: none;
   transform-style: preserve-3d;
@@ -617,195 +820,269 @@ body {
   box-sizing: border-box;
 }
 
-/* Front Face: Festive Luxury Pinkish Gradient Gift Box */
+/* ============================================================
+   REAL 3D GIFT BOX FRONT FACE — Red box + Gold ribbon + Puffy bow
+   ============================================================ */
+
+/* BOX BODY: Deep red with 3D shading — left face darker, right face medium */
 .box-front {
-  background: 
-    radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 60%),
-    linear-gradient(155deg, #fb7185 0%, #f43f5e 28%, #e11d48 65%, #9f1239 100%);
-  border: 1.5px solid #fda4af;
+  background:
+    /* Right-side shading panel */
+    linear-gradient(270deg, rgba(120,10,30,0.55) 0%, transparent 38%),
+    /* Bottom shadow depth */
+    linear-gradient(0deg, rgba(100,5,20,0.45) 0%, transparent 35%),
+    /* Main body color */
+    linear-gradient(160deg, #e8324a 0%, #c8192e 45%, #a8111f 100%);
+  border: none;
   border-radius: var(--radius-lg);
-  box-shadow: 
-    inset 0 2px 4px rgba(255, 255, 255, 0.5),
-    inset 0 -4px 10px rgba(136, 19, 55, 0.4),
-    0 12px 26px rgba(190, 24, 93, 0.28);
-  overflow: hidden;
+  box-shadow:
+    0 10px 30px rgba(160, 20, 40, 0.55),
+    0 4px 10px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  overflow: visible;
   transition: box-shadow 0.25s ease, transform 0.25s ease;
+  /* Needed so ::before lid sits on top */
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
 }
 
-/* 3D Gift Box Lid Overhang with Drop Shadow */
+/* LID: Slightly brighter red, sits above the body seam line */
 .box-front::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
-  height: 38px;
-  background: linear-gradient(180deg, 
-    rgba(255, 255, 255, 0.32) 0%, 
-    rgba(255, 255, 255, 0.08) 65%, 
-    rgba(0, 0, 0, 0.18) 100%
-  );
-  border-bottom: 2px solid rgba(136, 19, 55, 0.4);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  left: -3px;
+  right: -3px;
+  height: 36%;
+  background:
+    linear-gradient(270deg, rgba(120,10,30,0.4) 0%, transparent 40%),
+    linear-gradient(160deg, #f04060 0%, #d42035 55%, #b81525 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom: 3px solid rgba(80, 5, 15, 0.6);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.35),
+    inset 0 2px 0 rgba(255,255,255,0.22);
   z-index: 2;
   pointer-events: none;
 }
 
-/* Top Ribbon Tie on Lid */
-.box-front::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 6px;
-  background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.22);
-  z-index: 3;
-  pointer-events: none;
-}
-
-.gift-box-item.can-pick:hover .box-front {
-  box-shadow: 
-    inset 0 2px 6px rgba(255, 255, 255, 0.65),
-    inset 0 -4px 12px rgba(136, 19, 55, 0.45),
-    0 16px 36px rgba(225, 29, 72, 0.4);
-}
-
-/* Pure White Silk Satin Cross-Ribbons */
+/* GOLD VERTICAL RIBBON — runs full height */
 .ribbon-vertical {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 22px;
-  background: linear-gradient(90deg, 
-    #e2e8f0 0%, 
-    #ffffff 22%, 
-    #ffffff 78%, 
-    #cbd5e1 100%
+  width: 20px;
+  background: linear-gradient(90deg,
+    #b8872a 0%,
+    #f0c050 18%,
+    #fde68a 38%,
+    #f5c842 55%,
+    #d4a020 78%,
+    #b07818 100%
   );
-  border-left: 1px solid rgba(255, 255, 255, 0.85);
-  border-right: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.16);
-  z-index: 1;
+  box-shadow:
+    0 0 10px rgba(212,160,32,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+  z-index: 3;
+  pointer-events: none;
 }
 
+/* GOLD HORIZONTAL RIBBON — runs full width */
 .ribbon-horizontal {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 36%;   /* aligned to the lid seam */
   transform: translateY(-50%);
-  height: 22px;
-  background: linear-gradient(180deg, 
-    #e2e8f0 0%, 
-    #ffffff 22%, 
-    #ffffff 78%, 
-    #cbd5e1 100%
+  height: 20px;
+  background: linear-gradient(180deg,
+    #b8872a 0%,
+    #f0c050 18%,
+    #fde68a 38%,
+    #f5c842 55%,
+    #d4a020 78%,
+    #b07818 100%
   );
-  border-top: 1px solid rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.18);
-  z-index: 1;
+  box-shadow:
+    0 3px 10px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.4);
+  z-index: 4;
+  pointer-events: none;
 }
 
-/* Central Silk Ribbon Knot with 3D Tied Bow Loops */
+/* Remove the old ::after small tie strip — bow takes over */
+.box-front::after {
+  display: none;
+}
+
+/* ============================================================
+   PUFFY GOLD BOW — center knot circle + 4 petal loops
+   ============================================================ */
+
+/* Center knot of the bow */
 .gift-bow-badge {
-  position: relative;
-  z-index: 3;
-  width: 44px;
-  height: 44px;
+  position: absolute;
+  top: calc(36% - 22px); /* sits right on the lid/body seam */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #f8fafc 55%, #e2e8f0 100%);
+  background: radial-gradient(circle at 38% 35%,
+    #fff9c4 0%,
+    #f5c842 35%,
+    #c88a18 70%,
+    #a06010 100%
+  );
+  border: 1.5px solid #a06010;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,0.4),
+    inset 0 2px 3px rgba(255,255,220,0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-brand);
-  font-weight: 900;
-  font-size: 1.3rem;
-  color: #be123c;
-  border: 2px solid #ffffff;
-  box-shadow: 
-    0 4px 14px rgba(0, 0, 0, 0.22),
-    inset 0 2px 3px rgba(255, 255, 255, 0.9),
-    inset 0 -2px 3px rgba(15, 23, 42, 0.12);
+  font-size: 0;
+  color: transparent;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 3D Bow Loop - Left */
+/* BOW LOOP — Top-Left */
 .gift-bow-badge::before {
   content: '';
   position: absolute;
-  top: -12px;
-  left: -20px;
-  width: 26px;
-  height: 18px;
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #cbd5e1 100%);
-  border-radius: 65% 65% 20% 65%;
-  transform: rotate(-32deg);
+  top: -26px;
+  left: -26px;
+  width: 30px;
+  height: 22px;
+  background: linear-gradient(135deg,
+    #fff0a0 0%,
+    #f5c842 30%,
+    #d4a020 65%,
+    #b07818 100%
+  );
+  border-radius: 50% 60% 10% 60%;
+  transform: rotate(-42deg);
   transform-origin: bottom right;
-  box-shadow: 
-    -2px 3px 6px rgba(0, 0, 0, 0.18),
-    inset 0 2px 3px rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    -2px -2px 6px rgba(0,0,0,0.22),
+    inset 0 2px 4px rgba(255,240,160,0.6);
+  border: 1px solid #a06010;
   z-index: -1;
   pointer-events: none;
   transition: transform 0.25s ease;
 }
 
-/* 3D Bow Loop - Right */
+/* BOW LOOP — Top-Right */
 .gift-bow-badge::after {
   content: '';
   position: absolute;
-  top: -12px;
-  right: -20px;
-  width: 26px;
-  height: 18px;
-  background: linear-gradient(225deg, #ffffff 0%, #f1f5f9 45%, #cbd5e1 100%);
-  border-radius: 65% 65% 65% 20%;
-  transform: rotate(32deg);
+  top: -26px;
+  right: -26px;
+  width: 30px;
+  height: 22px;
+  background: linear-gradient(225deg,
+    #fff0a0 0%,
+    #f5c842 30%,
+    #d4a020 65%,
+    #b07818 100%
+  );
+  border-radius: 60% 50% 60% 10%;
+  transform: rotate(42deg);
   transform-origin: bottom left;
-  box-shadow: 
-    2px 3px 6px rgba(0, 0, 0, 0.18),
-    inset 0 2px 3px rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow:
+    2px -2px 6px rgba(0,0,0,0.22),
+    inset 0 2px 4px rgba(255,240,160,0.6);
+  border: 1px solid #a06010;
   z-index: -1;
   pointer-events: none;
   transition: transform 0.25s ease;
+  display: block;
 }
 
-/* Subtle Bow Hover Elevation */
+/* TWO EXTRA BOW LOOPS (bottom-left & bottom-right) via sibling pseudo on ribbon */
+.ribbon-vertical::before {
+  content: '';
+  position: absolute;
+  top: calc(36% - 36px);
+  left: 50%;
+  transform: translateX(-50%) translateX(-22px) rotate(42deg);
+  transform-origin: bottom right;
+  width: 26px;
+  height: 18px;
+  background: linear-gradient(315deg,
+    #fff0a0 0%,
+    #f5c842 30%,
+    #d4a020 65%,
+    #b07818 100%
+  );
+  border-radius: 50% 10% 60% 60%;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2), inset 0 -2px 3px rgba(255,240,160,0.5);
+  border: 1px solid #a06010;
+  z-index: 6;
+  pointer-events: none;
+}
+.ribbon-vertical::after {
+  content: '';
+  position: absolute;
+  top: calc(36% - 36px);
+  left: 50%;
+  transform: translateX(-50%) translateX(22px) rotate(-42deg);
+  transform-origin: bottom left;
+  width: 26px;
+  height: 18px;
+  background: linear-gradient(45deg,
+    #fff0a0 0%,
+    #f5c842 30%,
+    #d4a020 65%,
+    #b07818 100%
+  );
+  border-radius: 10% 50% 60% 60%;
+  box-shadow: -2px 2px 5px rgba(0,0,0,0.2), inset 0 -2px 3px rgba(255,240,160,0.5);
+  border: 1px solid #a06010;
+  z-index: 6;
+  pointer-events: none;
+}
+
+/* Hover: bow bounces up */
 .gift-box-item.can-pick:hover .gift-bow-badge {
-  transform: scale(1.06);
+  transform: translateX(-50%) translateY(-3px) scale(1.08);
 }
-
 .gift-box-item.can-pick:hover .gift-bow-badge::before {
-  transform: rotate(-36deg) scale(1.05);
+  transform: rotate(-48deg) scale(1.06);
 }
-
 .gift-box-item.can-pick:hover .gift-bow-badge::after {
-  transform: rotate(36deg) scale(1.05);
+  transform: rotate(48deg) scale(1.06);
 }
 
-/* Gift Box Tag: Crisp miniature tag tied at the bottom */
+/* Hover glow on box */
+.gift-box-item.can-pick:hover .box-front {
+  box-shadow:
+    0 18px 45px rgba(160, 20, 40, 0.7),
+    0 6px 16px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* BOX NUMBER TAG — bottom center label */
 .box-label-text {
   position: absolute;
   bottom: 10px;
-  z-index: 3;
-  font-size: 0.72rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #9f1239;
-  background: #ffffff;
+  color: #7c0010;
+  background: linear-gradient(135deg, #fff9c4 0%, #fde68a 100%);
   padding: 3px 12px;
   border-radius: var(--radius-pill);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(254, 205, 211, 0.8);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  border: 1px solid #d4a020;
+  white-space: nowrap;
 }
 
 /* Back Face: Revealed Prize (Pure White Interior + Contained Display - Zero Overflow) */
@@ -901,7 +1178,7 @@ body {
   justify-content: center;
   flex: 1;
   min-height: 0;
-  height: 98px;
+  height: 120px;
   width: 100%;
   margin: 3px 0;
   background: #f8fafc;
@@ -911,7 +1188,7 @@ body {
 }
 
 .box-prize-img {
-  max-height: 92px;
+  max-height: 112px;
   max-width: 92%;
   width: auto;
   height: auto;
@@ -954,7 +1231,7 @@ body {
    ================================================================= */
 .below-gift-action-dock {
   position: absolute;
-  top: calc(50% + 148px);
+  top: calc(50% + 158px);
   bottom: auto;
   left: 50%;
   transform: translateX(-50%);
@@ -1243,24 +1520,30 @@ body {
 /* Standard Laptops (e.g. 1366x768, 1280x800) */
 @media (max-height: 800px) and (min-width: 601px) {
   .app-container {
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 1rem;
     min-height: calc(100vh - 84px);
   }
+  .boxes-stage-viewport {
+    max-width: 1240px;
+  }
   .boxes-grid {
-    gap: 0.9rem;
-    max-width: 760px;
+    gap: 0.8rem;
+    max-width: 1240px;
   }
   .gift-box-item {
-    height: 155px;
+    height: 162px;
   }
   .prize-media-container {
-    height: 84px;
+    height: 110px;
   }
   .box-prize-img {
-    max-height: 78px;
+    max-height: 102px;
   }
   .prize-title-display {
-    font-size: 0.86rem;
+    font-size: 0.88rem;
+  }
+  .below-gift-action-dock {
+    top: calc(50% + 145px);
   }
 }
 
@@ -1273,19 +1556,19 @@ body {
     height: 28px;
   }
   .boxes-grid {
-    gap: 0.85rem;
+    gap: 0.5rem;
   }
   .gift-box-item {
-    height: 145px;
+    height: 110px;
   }
   .prize-media-container {
-    height: 76px;
+    height: 60px;
   }
   .box-prize-img {
-    max-height: 70px;
+    max-height: 56px;
   }
   .prize-title-display {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
   }
   .footer-container {
     flex-direction: column;
@@ -1314,6 +1597,15 @@ body {
   .login-card {
     padding: 1.5rem 1.1rem;
   }
+  .scatter-g1, .scatter-g4 {
+    font-size: 2.2rem;
+  }
+  .scatter-g3, .scatter-g6 {
+    font-size: 2rem;
+  }
+  .scatter-g2, .scatter-g5, .scatter-g7, .scatter-g8, .scatter-g9, .scatter-g10 {
+    display: none;
+  }
   .login-title {
     font-size: 1.35rem;
   }
@@ -1335,62 +1627,61 @@ body {
     font-size: 0.82rem;
   }
   .boxes-grid {
-    gap: 0.6rem;
+    gap: 0.38rem;
   }
   .gift-box-item {
-    height: 125px;
+    height: 94px;
   }
   .box-front::before {
-    height: 28px;
+    height: 24px;
   }
   .box-front::after {
-    width: 22px;
-    height: 4px;
+    width: 18px;
+    height: 3px;
   }
   .ribbon-vertical {
-    width: 14px;
+    width: 11px;
   }
   .ribbon-horizontal {
-    height: 14px;
+    height: 11px;
   }
   .gift-bow-badge {
-    width: 32px;
-    height: 32px;
-    font-size: 0.95rem;
+    width: 18px;
+    height: 18px;
   }
   .gift-bow-badge::before {
-    top: -9px;
-    left: -14px;
-    width: 18px;
-    height: 13px;
+    top: -7px;
+    left: -10px;
+    width: 13px;
+    height: 9px;
   }
   .gift-bow-badge::after {
-    top: -9px;
-    right: -14px;
-    width: 18px;
-    height: 13px;
+    top: -7px;
+    right: -10px;
+    width: 13px;
+    height: 9px;
   }
   .box-label-text {
-    font-size: 0.62rem;
-    bottom: 5px;
-    padding: 1px 6px;
+    font-size: 0.52rem;
+    bottom: 3px;
+    padding: 1px 4px;
   }
   .box-num-pill, .box-state-tag {
-    font-size: 0.58rem;
-    padding: 1px 5px;
+    font-size: 0.48rem;
+    padding: 1px 4px;
   }
   .prize-media-container {
-    height: 58px;
-    margin: 2px 0;
+    height: 44px;
+    margin: 1px 0;
   }
   .box-prize-img {
-    max-height: 54px;
+    max-height: 40px;
   }
   .prize-title-display {
-    font-size: 0.74rem;
+    font-size: 0.62rem;
   }
   .below-gift-action-dock {
-    top: calc(50% + 95px);
+    top: calc(50% + 90px);
   }
   .below-gift-btn {
     padding: 0.75rem 1.5rem;
