@@ -123,7 +123,7 @@ const sounds = new SoundManager();
 // 2. MASTER PRIZES: 2 NON-WINNABLE SHOWCASE & 7 WINNABLE REWARDS
 // -------------------------------------------------------------
 const STORAGE_KEYS = {
-  PRIZES: 'agarwal_master_prizes_v2026_v9',
+  PRIZES: 'agarwal_master_prizes_v2026_v11',
   HISTORY: 'lucky_draw_history'
 };
 
@@ -146,38 +146,19 @@ const DEFAULT_MASTER_PRIZES = {
       type: 'mega',
       badgeText: 'MEGA PRIZE',
       tag: 'Mega Prize'
-    },
-    {
-      id: 'showcase3',
-      name: 'Samsung S26 Ultra',
-      image: 'images/samsung-s26-ultra.png?v=s26_frontback_2026',
-      icon: '📱',
-      type: 'grand',
-      badgeText: 'MEGA PRIZE',
-      tag: 'Grand Prize'
-    },
-    {
-      id: 'showcase4',
-      name: 'Samsung 65" 4K TV',
-      image: 'images/samsung-65-tv.png?v=tv_4k_modern_2026',
-      icon: '📺',
-      type: 'mega',
-      badgeText: 'MEGA PRIZE',
-      tag: 'Mega Prize'
     }
   ],
   drawable: [
-    { id: 'p1',  name: 'Pendrive',              image: 'images/pendrive.jpg',            icon: '💾', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p2',  name: 'Cooling Pad',            image: 'images/cooling-pad.jpg',         icon: '❄️', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p3',  name: 'Bluetooth Speaker',      image: 'images/bluetooth-speaker.png',   icon: '🔊', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p4',  name: 'Wireless Neckband',      image: 'images/wireless-neckband.png',   icon: '🎧', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p5',  name: 'Keyboard & Mouse Combo', image: 'images/keyboard-mouse-combo.jpg',icon: '⌨️', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p6',  name: '₹500 Cash',              image: 'images/cash-500.jpg',            icon: '💵', tag: 'Verified Reward', weight: 1, enabled: true },
+    { id: 'p1',  name: 'Pendrive',              image: 'images/pendrive.jpg',            icon: '💾', tag: 'Verified Reward', weight: 1,   enabled: true },
+    { id: 'p2',  name: 'Cooling Pad',            image: 'images/cooling-pad.jpg',         icon: '❄️', tag: 'Verified Reward', weight: 1,   enabled: true },
+    { id: 'p3',  name: 'Bluetooth Speaker',      image: 'images/bluetooth-speaker.png',   icon: '🔊', tag: 'Verified Reward', weight: 1,   enabled: true },
+    { id: 'p4',  name: 'Wireless Neckband',      image: 'images/wireless-neckband.png',   icon: '🎧', tag: 'Verified Reward', weight: 1,   enabled: true },
+    { id: 'p5',  name: 'Keyboard & Mouse Combo', image: 'images/keyboard-mouse-combo.jpg',icon: '⌨️', tag: 'Verified Reward', weight: 1,   enabled: true },
+    { id: 'p6',  name: '₹500 Cash',              image: 'images/cash-500.jpg',            icon: '💵', tag: 'Verified Reward', weight: 1,   enabled: true },
     { id: 'p7',  name: '₹1,000 Cash',            image: 'images/cash-1000.jpg',           icon: '💵', tag: 'Verified Reward', weight: 0.3, enabled: true, rare: true },
-    { id: 'p8',  name: 'Earbuds',                image: 'images/earbuds.png?v=tws_black_2026',     icon: '🎧', tag: 'Verified Reward', weight: 1, enabled: true },
+    { id: 'p8',  name: 'Earbuds',                image: 'images/earbuds.png?v=tws_black_2026',     icon: '🎧', tag: 'Verified Reward', weight: 1,   enabled: true },
     { id: 'p9',  name: 'Smart Glass',            image: 'images/smart-glass.png?v=camera_glasses_2026', icon: '🕶️', tag: 'Verified Reward', weight: 0.3, enabled: true, rare: true },
-    { id: 'p10', name: 'Laptop Stand',           image: 'images/laptop-stand.png?v=folding_scissor_2026',icon: '💻', tag: 'Verified Reward', weight: 1, enabled: true },
-    { id: 'p11', name: 'Antivirus',              image: 'images/antivirus.png',           icon: '🛡️', tag: 'Verified Reward', weight: 1, enabled: true }
+    { id: 'p10', name: 'Laptop Stand',           image: 'images/laptop-stand.png?v=folding_scissor_2026',icon: '💻', tag: 'Verified Reward', weight: 1,   enabled: true }
   ]
 };
 
@@ -198,36 +179,18 @@ function getActivePrizes() {
   try {
     let raw = localStorage.getItem(STORAGE_KEYS.PRIZES);
     if (!raw) {
-      raw = localStorage.getItem('agarwal_master_prizes_v2026_v8') || localStorage.getItem('agarwal_master_prizes_v2026_v7') || localStorage.getItem('agarwal_master_prizes_v2026_v6') || localStorage.getItem('agarwal_master_prizes_v2026_v5');
+      raw = localStorage.getItem('agarwal_master_prizes_v2026_v10') || localStorage.getItem('agarwal_master_prizes_v2026_v9');
     }
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed.showcase && parsed.drawable && parsed.drawable.length >= 7) {
-        // Upgrade showcase images
-        parsed.showcase = parsed.showcase.map(sc => {
-          if (sc.id === 'showcase3') {
-            return { ...sc, image: 'images/samsung-s26-ultra.png?v=s26_frontback_2026' };
-          }
-          if (sc.id === 'showcase4') {
-            return { ...sc, image: 'images/samsung-65-tv.png?v=tv_4k_modern_2026' };
-          }
-          return sc;
-        });
-        // Upgrade drawable reward images
-        parsed.drawable = parsed.drawable.map(p => {
-          if (p.id === 'p8') {
-            return { ...p, image: 'images/earbuds.png?v=tws_black_2026' };
-          }
-          if (p.id === 'p9') {
-            return { ...p, image: 'images/smart-glass.png?v=camera_glasses_2026' };
-          }
-          if (p.id === 'p10') {
-            return { ...p, image: 'images/laptop-stand.png?v=folding_scissor_2026' };
-          }
-          return { weight: 1, enabled: true, rare: false, ...p };
-        });
-        try { localStorage.setItem(STORAGE_KEYS.PRIZES, JSON.stringify(parsed)); } catch(e){}
-        return parsed;
+      if (parsed.showcase && parsed.drawable) {
+        // Drop removed items: S26, TV, Antivirus
+        parsed.showcase = parsed.showcase.filter(sc => sc.id !== 'showcase3' && sc.id !== 'showcase4' && !sc.name.includes('S26') && !sc.name.includes('TV'));
+        parsed.drawable = parsed.drawable.filter(p => p.id !== 'p11' && !p.name.toLowerCase().includes('antivirus'));
+        if (parsed.showcase.length >= 2 && parsed.drawable.length >= 7) {
+          try { localStorage.setItem(STORAGE_KEYS.PRIZES, JSON.stringify(parsed)); } catch(e){}
+          return parsed;
+        }
       }
     }
   } catch (err) {
@@ -248,7 +211,7 @@ const state = {
   wonPrize: null,
   boxAssignments: [],
   hasRevealedAll: false,
-  totalBoxes: 15
+  totalBoxes: 12
 };
 
 // -------------------------------------------------------------
@@ -363,23 +326,23 @@ function renderLoginMarquee() {
   const shuffledShowcases = shuffle(showcasePool);
   const shuffledRegulars = shuffle(regularPool);
 
-  // 2. Interleave so each UNIQUE showcase item is separated by EXACTLY 3 regular rewards:
-  // [Showcase A -> Reg 1 -> Reg 2 -> Reg 3 -> Showcase B -> Reg 4 -> Reg 5 -> Reg 6 -> Showcase C ...]
+  // 2. Interleave so each UNIQUE showcase item is separated by regular rewards:
+  // [Showcase 1 (e.g. iPhone) -> 5 Regular Rewards -> Showcase 2 (e.g. ₹20,000 Cash) -> 5 Regular Rewards]
   // This guarantees:
   // - Showcase items are NEVER consecutive ("not one after another")
-  // - In any typical visible viewport window (6-8 cards moving across screen),
-  //   there are ALWAYS 2 DIFFERENT showcase items visible gliding across the ribbon!
   // - ZERO duplicate showcase items visible at once (only 1 of each showcase item on screen at any time;
-  //   identical items are spaced 16 cards / ~2,880px apart so 2 iPhones NEVER appear simultaneously)
+  //   identical items are spaced 12 cards / ~2,000px apart so 2 iPhones NEVER appear simultaneously)
+  // - When one moves out of view on the left, the other is coming into view on the right
   const oneCycle = [];
   let regIdx = 0;
+  const regularsPerShowcase = Math.floor(shuffledRegulars.length / shuffledShowcases.length);
 
   for (let s = 0; s < shuffledShowcases.length; s++) {
     // 1 Unique Showcase Trap
     oneCycle.push({ ...shuffledShowcases[s], isShowcaseTrap: true });
 
-    // Exactly 3 regular store rewards between each showcase prize
-    for (let r = 0; r < 3; r++) {
+    // Regular store rewards between each showcase prize
+    for (let r = 0; r < regularsPerShowcase; r++) {
       const regPrize = shuffledRegulars[regIdx % shuffledRegulars.length];
       regIdx++;
       oneCycle.push({ ...regPrize, isShowcaseTrap: false });
@@ -475,19 +438,22 @@ function transitionToDrawView() {
 }
 
 function checkExistingSession() {
-  const savedUser = localStorage.getItem('lucky_draw_user');
-  if (savedUser) {
-    try {
-      state.currentUser = JSON.parse(savedUser);
-      if (dom.displayPhone) dom.displayPhone.textContent = state.currentUser.phone;
-      if (dom.displayBill) dom.displayBill.textContent = state.currentUser.bill;
-      dom.loginView.classList.remove('active-view');
-      dom.drawView.classList.add('active-view');
-      initLuckyDrawBoxes();
-    } catch {
-      localStorage.removeItem('lucky_draw_user');
-    }
-  }
+  // Always throw to login page on refresh or open
+  localStorage.removeItem('lucky_draw_user');
+  sessionStorage.removeItem('lucky_draw_user');
+  state.currentUser = null;
+  state.hasDrawn = false;
+  state.chosenBoxIndex = null;
+  state.wonPrize = null;
+  state.boxAssignments = [];
+  state.hasRevealedAll = false;
+
+  if (dom.drawView) dom.drawView.classList.remove('active-view');
+  if (dom.loginView) dom.loginView.classList.add('active-view');
+  if (dom.loginForm) dom.loginForm.reset();
+  if (dom.userPhoneInput) dom.userPhoneInput.value = '';
+  if (dom.userBillInput) dom.userBillInput.value = '';
+  hideLoginError();
 }
 
 function resetSession() {
@@ -516,7 +482,8 @@ function resetSession() {
 // -------------------------------------------------------------
 function initLuckyDrawBoxes() {
   const master = getActivePrizes();
-  const totalBoxes = master.drawable.length + master.showcase.length;
+  // Exactly 12 mystery boxes matching the 12 unique items (10 drawable + 2 showcase = 12 total, 4x3 grid)
+  const totalBoxes = (master.drawable.length + master.showcase.length);
   state.totalBoxes = totalBoxes;
 
   dom.boxesContainer.innerHTML = '';
@@ -650,14 +617,16 @@ function distributePrizes(winningIndex) {
   state.wonPrize = wonPrize;
   state.boxAssignments[winningIndex] = wonPrize;
 
-  // Remaining boxes: all other drawables + all showcase items, shuffled
+  // Remaining boxes: remaining 9 store rewards + 2 showcase items (exactly 11 items for 11 boxes)
+  // Shuffled with ZERO DUPLICATES!
   const remainingDrawable = drawablePool.filter(p => p.id !== wonPrize.id);
   const remainingPool = [...remainingDrawable, ...showcasePool].sort(() => Math.random() - 0.5);
 
   let poolIdx = 0;
   for (let i = 0; i < totalBoxes; i++) {
     if (i !== winningIndex) {
-      state.boxAssignments[i] = remainingPool[poolIdx++] || wonPrize;
+      state.boxAssignments[i] = remainingPool[poolIdx % remainingPool.length];
+      poolIdx++;
     }
   }
 }

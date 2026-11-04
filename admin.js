@@ -14,7 +14,7 @@ const ADMIN_CREDENTIALS = {
 };
 
 const STORAGE_KEYS = {
-  PRIZES: 'agarwal_master_prizes_v2026_v9',
+  PRIZES: 'agarwal_master_prizes_v2026_v11',
   HISTORY: 'lucky_draw_history',
   AUTH: 'admin_authenticated'
 };
@@ -22,9 +22,7 @@ const STORAGE_KEYS = {
 const DEFAULT_MASTER_PRIZES = {
   showcase: [
     { id: 'grand',     name: 'iPhone 18 Pro Max',  image: 'images/iphone-18-pro-max.webp', icon: '📱', type: 'grand', badgeText: 'MEGA PRIZE', tag: 'Grand Prize' },
-    { id: 'mega',      name: '₹20,000 Cash',        image: 'images/cash-20000.jpg',         icon: '💵', type: 'mega',  badgeText: 'MEGA PRIZE', tag: 'Mega Prize' },
-    { id: 'showcase3', name: 'Samsung S26 Ultra',   image: 'images/samsung-s26-ultra.png?v=s26_frontback_2026',  icon: '📱', type: 'grand', badgeText: 'MEGA PRIZE', tag: 'Grand Prize' },
-    { id: 'showcase4', name: 'Samsung 65" 4K TV',   image: 'images/samsung-65-tv.png?v=tv_4k_modern_2026',      icon: '📺', type: 'mega',  badgeText: 'MEGA PRIZE', tag: 'Mega Prize'  }
+    { id: 'mega',      name: '₹20,000 Cash',        image: 'images/cash-20000.jpg',         icon: '💵', type: 'mega',  badgeText: 'MEGA PRIZE', tag: 'Mega Prize' }
   ],
   drawable: [
     { id: 'p1',  name: 'Pendrive',              image: 'images/pendrive.jpg',             icon: '💾', tag: 'Verified Reward', weight: 1,   enabled: true, rare: false },
@@ -36,8 +34,7 @@ const DEFAULT_MASTER_PRIZES = {
     { id: 'p7',  name: '₹1,000 Cash',            image: 'images/cash-1000.jpg',            icon: '💵', tag: 'Verified Reward', weight: 0.3, enabled: true, rare: true  },
     { id: 'p8',  name: 'Earbuds',                image: 'images/earbuds.png?v=tws_black_2026',     icon: '🎧', tag: 'Verified Reward', weight: 1,   enabled: true, rare: false },
     { id: 'p9',  name: 'Smart Glass',            image: 'images/smart-glass.png?v=camera_glasses_2026', icon: '🕶️', tag: 'Verified Reward', weight: 0.3, enabled: true, rare: true  },
-    { id: 'p10', name: 'Laptop Stand',           image: 'images/laptop-stand.png?v=folding_scissor_2026',icon: '💻', tag: 'Verified Reward', weight: 1,   enabled: true, rare: false },
-    { id: 'p11', name: 'Antivirus',              image: 'images/antivirus.png',            icon: '🛡️', tag: 'Verified Reward', weight: 1,   enabled: true, rare: false }
+    { id: 'p10', name: 'Laptop Stand',           image: 'images/laptop-stand.png?v=folding_scissor_2026',icon: '💻', tag: 'Verified Reward', weight: 1,   enabled: true, rare: false }
   ]
 };
 
@@ -512,36 +509,18 @@ function loadPrizesFromStorage() {
   try {
     let raw = localStorage.getItem(STORAGE_KEYS.PRIZES);
     if (!raw) {
-      raw = localStorage.getItem('agarwal_master_prizes_v2026_v8') || localStorage.getItem('agarwal_master_prizes_v2026_v7') || localStorage.getItem('agarwal_master_prizes_v2026_v6') || localStorage.getItem('agarwal_master_prizes_v2026_v5');
+      raw = localStorage.getItem('agarwal_master_prizes_v2026_v10') || localStorage.getItem('agarwal_master_prizes_v2026_v9');
     }
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed.showcase && parsed.drawable && parsed.drawable.length >= 7) {
-        // Upgrade showcase images to new front-and-back S26 and modern 4K TV
-        parsed.showcase = parsed.showcase.map(sc => {
-          if (sc.id === 'showcase3') {
-            return { ...sc, image: 'images/samsung-s26-ultra.png?v=s26_frontback_2026' };
-          }
-          if (sc.id === 'showcase4') {
-            return { ...sc, image: 'images/samsung-65-tv.png?v=tv_4k_modern_2026' };
-          }
-          return sc;
-        });
-        // Upgrade drawable reward images
-        parsed.drawable = parsed.drawable.map(p => {
-          if (p.id === 'p8') {
-            return { ...p, image: 'images/earbuds.png?v=tws_black_2026' };
-          }
-          if (p.id === 'p9') {
-            return { ...p, image: 'images/smart-glass.png?v=camera_glasses_2026' };
-          }
-          if (p.id === 'p10') {
-            return { ...p, image: 'images/laptop-stand.png?v=folding_scissor_2026' };
-          }
-          return { weight: 1, enabled: true, rare: false, ...p };
-        });
-        savePrizesToStorage(parsed);
-        return parsed;
+      if (parsed.showcase && parsed.drawable) {
+        // Drop removed items: S26, TV, Antivirus
+        parsed.showcase = parsed.showcase.filter(sc => sc.id !== 'showcase3' && sc.id !== 'showcase4' && !sc.name.includes('S26') && !sc.name.includes('TV'));
+        parsed.drawable = parsed.drawable.filter(p => p.id !== 'p11' && !p.name.toLowerCase().includes('antivirus'));
+        if (parsed.showcase.length >= 2 && parsed.drawable.length >= 7) {
+          savePrizesToStorage(parsed);
+          return parsed;
+        }
       }
     }
   } catch (err) { console.error('Error loading prizes:', err); }
